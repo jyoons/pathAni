@@ -1,5 +1,5 @@
-@import "/resource/css/base.css";
-@import "/resource/css/fonts.css";
-@import "/resource/css/layout.css";
-@import "/resource/css/devExtreme-custom.css";
-@import "/resource/css/contents.css";
+@import "../css/base.css";
+@import "../css/fonts.css";
+@import "../css/layout.css";
+@import "../css/devExtreme-custom.css";
+@import "../css/contents.css";
