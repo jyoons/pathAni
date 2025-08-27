@@ -1,0 +1,18 @@
+/* calendar */
+.periodSet-area{display:flex; align-items: center;}
+.periodSet-datepicker{display:flex; align-items:center; width:400px;}
+.periodSet-datepicker + .periodSet-btns,
+.periodSet-btns + .btn{margin-left:10px;}
+.periodSet-datepicker .term{padding:0 4px;}
+.periodSet-btns{display:flex; align-items:center; gap:6px;}
+.periodSet-btns button{display:block; padding:4px 9px; font-weight:500; font-size:12px; border:1px solid #c1c1c1; background:#FFF; border-radius:3px;}
+.periodSet-btns button.active{background:#f6f6f6;}
+.periodSet-datepicker .dx-datebox-date .dx-dropdowneditor-icon::before{display:none;}
+.periodSet-datepicker .dx-datebox-date .dx-dropdowneditor-icon{background:url('/resource/images/ico-calendar.svg') center center no-repeat; background-size: 12px;}
+.periodSet-datepicker .dx-texteditor-input{padding:0 0 0 10px;}
+.periodSet-datepicker .dx-texteditor.dx-editor-outlined{height:30px;}
+.periodSet-datepicker .dx-texteditor-input-container{align-items:center;}
+.periodSet-datepicker .dx-dropdowneditor.dx-state-active .dx-dropdowneditor-icon, 
+.periodSet-datepicker .dx-dropdowneditor.dx-state-hover:not(.dx-custom-button-hovered) .dx-dropdowneditor-icon,
+.periodSet-datepicker .dx-dropdowneditor-button.dx-state-active .dx-dropdowneditor-icon,
+.periodSet-datepicker .dx-dropdowneditor.dx-dropdowneditor-active .dx-dropdowneditor-icon{background-color:transparent;}

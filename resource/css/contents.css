@@ -1,0 +1,6 @@
+.conts-area-wrap{display:flex; width:100%; height:100%; flex-wrap: wrap; gap:12px; padding:12px; overflow-y:auto;}
+.conts-area-wrap .conts-area{width:calc(50% - 6px); min-height:calc(50% - 6px); padding:20px 30px; background:var(--color-bg-white); border-radius:10px;}
+.conts-area-wrap.full{display:block; height:auto;}
+.conts-area-wrap.full .conts-area{width:100%; min-height:auto;}
+.conts-area-wrap.full.period .conts-area{display:flex; align-items:center; height:56px; padding:0 30px;}
+.conts-area-wrap.full.period + .conts-area-wrap{padding-top:0; height:calc(100% - 56px - 24px);}
