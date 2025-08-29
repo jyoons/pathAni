@@ -38,6 +38,7 @@ const PUB_ONLY = function(pub){
     }).dxDateBox('instance');
     $(document).off('click.chart1Period', periodSel).on('click.chart1Period', periodSel, function () {
         var dataVal = $(this).attr('data-search-flag');
+        var now = new Date();
         var toDate = new Date(selectedDate2.option('value')) || new Date();
         var fromDate = new Date(toDate);
         var $btns = $(this).closest('.periodSet-btns');
@@ -50,8 +51,7 @@ const PUB_ONLY = function(pub){
             toDate   = endOfDay(toDate);
             break;
           case 'Y':
-            var y = addDays(toDate, -1);
-            console.log(toDate)
+            var y = addDays(now, -1);
             fromDate = startOfDay(y);
             toDate   = endOfDay(y);
             break;
@@ -74,6 +74,6 @@ const PUB_ONLY = function(pub){
       if ($defaultBtn.length) $defaultBtn.trigger('click');
     return { from: selectedDate1, to: selectedDate2 };
   }
-
+ 
   return pub;
 }(window.PUB_ONLY || {}, jQuery);

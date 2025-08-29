@@ -11,14 +11,527 @@
           <button type="button" data-search-flag="Y">어제</button>
           <button type="button" data-search-flag="W">일주일</button>
           <button type="button" data-search-flag="M">30일</button>
+           <button type="button">당월</button>
         </div>
         <button type="button" class="btn primary">조회</button>
       </div>
   </div>
 </div>
 <div class="conts-area-wrap">
-  <div class="conts-area">conts-area1</div>
-  <div class="conts-area">conts-area2</div>
-  <div class="conts-area">conts-area3</div>
-  <div class="conts-area">conts-area4</div>
-</div>
+  <div class="conts-area">
+    <div class="tit">키워드 순위</div>
+    <div class="conts-grid keyword">
+      <div class="data-list-wrap">
+        <ul class="data-list-items">
+          <li class="data-list-item">
+            <div>1</div>
+            <div>해지</div>
+            <div>100</div>
+          </li>
+          <li class="data-list-item">
+            <div>2</div>
+            <div>취소, 환불</div>
+            <div>90</div>
+          </li>
+          <li class="data-list-item">
+            <div>3</div>
+            <div>구매, 변경</div>
+            <div>80</div>
+          </li>
+          <li class="data-list-item">
+            <div>4</div>
+            <div>코인</div>
+            <div>70</div>
+          </li>
+          <li class="data-list-item">
+            <div>5</div>
+            <div>쿠폰</div>
+            <div>60</div>
+          </li>
+          <li class="data-list-item">
+            <div>6</div>
+            <div>VOD</div>
+            <div>50</div>
+          </li>
+          <li class="data-list-item">
+            <div>7</div>
+            <div>이벤트</div>
+            <div>40</div>
+          </li>
+          <li class="data-list-item">
+            <div>8</div>
+            <div>다운로드</div>
+            <div>30</div>
+          </li>
+          <li class="data-list-item">
+            <div>9</div>
+            <div>구매</div>
+            <div>20</div>
+          </li>
+          <li class="data-list-item">
+            <div>10</div>
+            <div>회원정보찾기</div>
+            <div>10</div>
+          </li>                     
+        </ul>
+      </div>
+      <div class="keyword-wrap">
+        <div class="keyword-area"></div>
+      </div>
+    </div>
+  </div>
+  <div class="conts-area h-full">
+    <div class="tit">타이틀 타이틀</div>
+     <div class="conts-grid chart-tabs">
+      <div id="chartTabs" class="dev-custom-tab"></div>
+      <div class="chart-panels">
+        <div class="chart-panel active" data-key="hourly">
+          <div id="chartHourly" class="chart-box"></div>
+        </div>
+        <div class="chart-panel" data-key="avg30">
+          <div id="chartAvg30" class="chart-box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="conts-area h-full">
+    <div class="tit">라우팅봇 현황</div>
+    <div class="conts-grid routing-bot">
+      <div id="routingReport" class="routing-barchart">chart area</div>
+      <div class="data-list-wrap card">
+        <ul class="data-list-cards col-4">
+          <li class="data-list-card">
+            <div class="dataTit">콜봇응대</div>
+            <div class="conts">50.0%</div>
+          </li>
+          <li class="data-list-card">
+            <div class="dataTit">상담사 응대</div>
+            <div class="conts">19.0%</div>
+          </li>
+          <li class="data-list-card">
+            <div class="dataTit">IVR처리</div>
+            <div class="conts">20.0%</div>
+          </li>
+          <li class="data-list-card">
+            <div class="dataTit">FALLBACK</div>
+            <div class="conts">9.7%</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="conts-area">  
+    <div class="tit">라우팅봇 상세현황</div>
+    <div class="data-list-wrap card">
+      <ul class="data-list-cards">
+        <li class="data-list-card">
+          <div class="dataTit">총인입호</div>
+          <div class="conts">30</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">최초인입</div>
+          <div class="conts">21</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">재인입</div>
+          <div class="conts">9</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">재인입률</div>
+          <div class="conts">10.0%</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">콜봇응대</div>
+          <div class="conts">0</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">상담사 전환</div>
+          <div class="conts">21</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">IVR 전환</div>
+          <div class="conts">7</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">비정상종료</div>
+          <div class="conts">1</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">IVR처리</div>
+          <div class="conts">0</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">상담사 응대</div>
+          <div class="conts">9</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">고객포기</div>
+          <div class="conts">21</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">미처리</div>
+          <div class="conts">7</div>
+        </li>
+        <li class="data-list-card">
+          <div class="dataTit">FALLBACK</div>
+          <div class="conts">7</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  (function (win, doc){
+    if (win.AIKeywordCloud && typeof win.AIKeywordCloud.destroy === 'function') {
+      try { win.AIKeywordCloud.destroy(); } catch(e) {}
+    }
+
+    function debounce(fn, wait){ let t; return function(){ clearTimeout(t); t=setTimeout(()=>fn.apply(this, arguments), wait); }; }
+    function ellipseShape(theta){ var rx=3, ry=1; return 1/Math.sqrt(Math.pow((Math.cos(theta)/rx),2)+Math.pow((Math.sin(theta)/ry),2)); }
+
+    const DEFAULTS = {
+      container: '.keyword-area',
+      words: ["워드","클라우드","AI","마이닝","텍스트","분석","검색","데이터","NLP","딥러닝","모델","토큰","코퍼스","시각화123","패턴","추출","분류","정규화","감성","추출","분류A","정규화1","감성"],
+      weightRange: [12,120],
+      maxWeight: 120,
+      waitMsBetweenTries: 120,
+      maxTries: 80
+    };
+
+    win.AIKeywordCloud = {
+      _opts: DEFAULTS,
+      _tries: 0,
+      _resizeObs: null,
+      _resizeHandler: null,
+      _mo: null,
+      _autoStarted: false,
+      init(userOpts){
+        this.destroy();
+        this._opts = Object.assign({}, DEFAULTS, userOpts || {});
+        this._tries = 0;
+        this._boot();
+      },
+      destroy(){
+        if (this._resizeObs){ try{ this._resizeObs.disconnect(); }catch(e){} this._resizeObs=null; }
+        if (this._resizeHandler){ win.removeEventListener('resize', this._resizeHandler); this._resizeHandler=null; }
+        if (this._mo){ try{ this._mo.disconnect(); }catch(e){} this._mo=null; }
+
+        const box = doc.querySelector(this._opts?.container || DEFAULTS.container);
+        if (box) {
+          box.innerHTML = '';
+          box.removeAttribute('data-aiwc-inited');
+        }
+      },
+      setWords(arr){ if(Array.isArray(arr)){ this._opts.words = arr.slice(); this.refresh(); } },
+      refresh(){ this._render(true); },
+      _boot(){
+        const okJq = !!win.jQuery;
+        const okPlg = okJq && typeof jQuery.fn.awesomeCloud === 'function';
+        const box = doc.querySelector(this._opts.container);
+        if (!okJq || !okPlg || !box){
+          if (this._tries++ < this._opts.maxTries){
+            return setTimeout(()=>this._boot(), this._opts.waitMsBetweenTries);
+          }
+          if (!okJq)  console.warn('[AIKeywordCloud] jQuery 미로드');
+          if (okJq && !okPlg) console.warn('[AIKeywordCloud] awesomeCloud 플러그인 미로드');
+          if (!box)   console.warn('[AIKeywordCloud] 컨테이너 없음:', this._opts.container);
+          return;
+        }
+        if (box.getAttribute('data-aiwc-inited') === '1') return;
+        this._render(false);
+        box.setAttribute('data-aiwc-inited','1');
+        this._watchResize(box);
+      },
+
+      _injectWords(box){
+        const randInt = (min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+        const [minW, maxW] = this._opts.weightRange;
+        const MAX = this._opts.maxWeight;
+
+        box.innerHTML = '';
+        this._opts.words.forEach(w=>{
+          const raw = randInt(minW, maxW);
+          const capped = Math.min(raw, MAX);
+          const sp = doc.createElement('span');
+          sp.textContent = w;
+          sp.setAttribute('data-weight', String(capped));
+          box.appendChild(sp);
+        });
+      },
+
+      _render(isRerender){
+        const $ = jQuery;
+        const box = doc.querySelector(this._opts.container);
+        if (!box) return;
+
+        this._injectWords(box);
+         $(box).awesomeCloud({
+            size: { grid: 10, factor: 1, normalize: true },
+            color:{ background:"rgba(255,255,255,1)", start:"#7daffc", end:"#ef4444" },
+            options:{ color:"random-light", rotationRatio:0, printMultiplier:2, sort:"highest" },
+            font: "'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+            shape: ellipseShape
+        });
+      },
+
+      _watchResize(box){
+        const wrap = box.closest('.wrapper') || box.parentElement || doc.body;
+        const rerender = debounce(()=>this._render(true), 200);
+        if ('ResizeObserver' in win){
+          this._resizeObs = new ResizeObserver(rerender);
+          this._resizeObs.observe(wrap);
+        } else {
+          this._resizeHandler = rerender;
+          win.addEventListener('resize', this._resizeHandler);
+        }
+      },
+
+      autoStart(){
+        if (this._autoStarted) return;
+        this._autoStarted = true;
+        const tryInitIfFound = () => {
+          const box = doc.querySelector(this._opts.container);
+          if (box && box.getAttribute('data-aiwc-inited') !== '1') {
+            this._tries = 0;
+            this._boot();
+          }
+        };
+
+        tryInitIfFound();
+        this._mo = new MutationObserver((muts)=>{
+          for (const m of muts) {
+            if (m.addedNodes && m.addedNodes.length) {
+              const box = doc.querySelector(this._opts.container);
+              if (box && box.getAttribute('data-aiwc-inited') !== '1') {
+                this._tries = 0;
+                this._boot();
+                break;
+              }
+            }
+          }
+        });
+        this._mo.observe(doc.body, { childList: true, subtree: true });
+      }
+    };
+    AIKeywordCloud.autoStart();
+
+  })(window, document);
+
+/* ===================== [2] 탭 + 라인차트 IIFE (DevExtreme) ===================== */
+  (function (win, $) {
+  if (win.CallCenterTabbed && typeof win.CallCenterTabbed.destroy === 'function') {
+    try { win.CallCenterTabbed.destroy(); } catch(e) {}
+  }
+
+  win.CallCenterTabbed = {
+    charts: { hourly: null, avg30: null },
+    tabs: null,
+
+    // 샘플 데이터 (실데이터로 교체)
+    dataHourly: [
+      { h: '01', first: 52, re: 50 }, { h: '02', first: 40, re: 48 }, { h: '03', first: 28, re: 30 },
+      { h: '04', first: 22, re: 35 }, { h: '05', first: 30, re: 42 }, { h: '06', first: 90, re: 65 },
+      { h: '07', first: 41, re: 60 }, { h: '08', first: 38, re: 50 }, { h: '09', first: 35, re: 45 },
+      { h: '10', first: 36, re: 42 }, { h: '11', first: 85, re: 60 }, { h: '12', first: 70, re: 68 },
+      { h: '13', first: 30, re: 55 }, { h: '14', first: 25, re: 58 }, { h: '15', first: 86, re: 62 },
+      { h: '16', first: 70, re: 58 }, { h: '17', first: 25, re: 30 }, { h: '18', first: 20, re: 45 },
+      { h: '19', first: 22, re: 40 }, { h: '20', first: 21, re: 48 }, { h: '21', first: 23, re: 52 },
+      { h: '22', first: 34, re: 45 }, { h: '23', first: 40, re: 55 }
+    ],
+    dataAvg30: [
+      { d: '주1', first: 420, re: 390 }, { d: '주2', first: 465, re: 410 },
+      { d: '주3', first: 480, re: 430 }, { d: '주4', first: 450, re: 440 }
+    ],
+
+    destroy() {
+      if (this.tabs && this.tabs.dispose) this.tabs.dispose();
+      Object.values(this.charts).forEach(c => { if (c && c.dispose) c.dispose(); });
+      this.charts = { hourly: null, avg30: null };
+      this.tabs = null;
+    },
+
+    init() {
+      this.destroy();
+
+      // Tabs
+      this.tabs = $('#chartTabs').dxTabs({
+        items: [
+          { text: '시간대별 인입 현황', key: 'hourly' },
+          { text: '최근 30일 일평균 현황', key: 'avg30' }
+        ],
+        selectedIndex: 0,
+        onSelectionChanged: (e) => {
+          const key = e.addedItems?.[0]?.key;
+          this._switchPanel(key);
+          this._renderIfNeeded(key);
+        }
+      }).dxTabs('instance');
+
+      // 최초 랜더
+      this._renderIfNeeded('hourly');
+
+      // 리사이즈 시 현재 보이는 차트만 리렌더
+      DevExpress.utils.resizeCallbacks.add(() => this.refreshVisible());
+    },
+
+    refreshVisible() {
+      const active = document.querySelector('.chart-panel.active');
+      if (!active) return;
+      const key = active.dataset.key;
+      if (key === 'hourly' && this.charts.hourly) this.charts.hourly.render();
+      if (key === 'avg30' && this.charts.avg30) this.charts.avg30.render();
+    },
+
+    _switchPanel(key) {
+      document.querySelectorAll('.chart-panel').forEach(p => {
+        p.classList.toggle('active', p.dataset.key === key);
+      });
+    },
+
+    _renderIfNeeded(key) {
+      if (key === 'hourly') {
+        if (!this.charts.hourly) this.charts.hourly = this._makeHourly('#chartHourly', this.dataHourly);
+        else this.charts.hourly.render();
+      } else {
+        if (!this.charts.avg30) this.charts.avg30 = this._makeAvg30('#chartAvg30', this.dataAvg30);
+        else this.charts.avg30.render();
+      }
+    },
+
+    _makeHourly(sel, data) {
+      return $(sel).dxChart({
+        dataSource: data,
+        commonSeriesSettings: {
+          argumentField: 'h',
+          type: 'line',
+          point: { visible: true, size: 4 }
+        },
+        series: [
+          { valueField: 'first', name: '최초인입수' },
+          { valueField: 're', name: '재인입수' }
+        ],
+        legend: { visible: true, verticalAlignment: 'top', horizontalAlignment: 'right', font:{size:11} },
+        tooltip: { enabled: true, customizeTooltip: i => ({ text: `${i.argument}시\n${i.seriesName}: ${i.valueText}` }) },
+        palette: ['#88B3FC', '#FF928A'],
+        animation: { enabled: true }
+      }).dxChart('instance');
+    },
+
+    _makeAvg30(sel, data) {
+      return $(sel).dxChart({
+        dataSource: data,
+        commonSeriesSettings: {
+          argumentField: 'd',
+          type: 'line',
+          point: { visible: true, size: 4 }
+        },
+        series: [
+          { valueField: 'first', name: '최초인입수' },
+          { valueField: 're', name: '재인입수' }
+        ],
+        legend: { visible: true, verticalAlignment: 'top', horizontalAlignment: 'right', font:{size:11} },
+        tooltip: { enabled: true, customizeTooltip: i => ({ text: `${i.argument}\n${i.seriesName}: ${i.valueText}` }) },
+        palette: ['#88B3FC', '#FF928A'],
+        animation: { enabled: true }
+      }).dxChart('instance');
+    }
+  };
+
+  // DOM 준비되면 실행
+  $(function(){
+    win.CallCenterTabbed.init();
+  });
+})(window, jQuery);
+
+/* ===================== [라우팅봇 현황] 다중 막대 차트 ===================== */
+(function (win, $) {
+  if (win.CallCenterRouting && win.CallCenterRouting.destroy) {
+    try { win.CallCenterRouting.destroy(); } catch(e){}
+  }
+
+  win.CallCenterRouting = {
+    chart: null,
+
+    data: [
+      { category:'콜봇',     total:100, bot:55, agent:20, ivr:18, fallback:7 },
+      { category:'챗봇',     total:95,  bot:52, agent:19, ivr:17, fallback:7 },
+      { category:'콜봇상담', total:92,  bot:50, agent:21, ivr:15, fallback:6 },
+      { category:'상담사',   total:88,  bot:48, agent:22, ivr:14, fallback:4 },
+      { category:'IVR',      total:90,  bot:45, agent:20, ivr:20, fallback:5 },
+      { category:'이탈율',   total:70,  bot:35, agent:15, ivr:14, fallback:6 },
+      { category:'QnA',      total:96,  bot:54, agent:18, ivr:18, fallback:6 },
+      { category:'게시판',   total:85,  bot:47, agent:17, ivr:16, fallback:5 },
+      { category:'고객포기', total:78,  bot:42, agent:16, ivr:14, fallback:6 },
+      { category:'미처리',   total:72,  bot:38, agent:15, ivr:13, fallback:6 }
+    ],
+
+    destroy() {
+      if (this.chart && this.chart.dispose) this.chart.dispose();
+      this.chart = null;
+    },
+
+    init() {
+      this.destroy();
+      this.chart = $('#routingReport').dxChart({
+        dataSource: this.data,
+        commonSeriesSettings: {
+          argumentField: 'category',
+          type: 'bar'
+        },
+        series: [
+          { valueField: 'total',     name: '총콜수' },
+          { valueField: 'bot',       name: '콜봇응대' },
+          { valueField: 'agent',     name: '상담사전환' },
+          { valueField: 'ivr',       name: 'IVR전환' },
+          { valueField: 'fallback',  name: 'FALLBACK' }
+        ],
+        barGroupWidth: 60,
+        palette: ['#88B3FC', '#9A8DFF', '#FFA29B', '#FFBA67', '#7AD6E9'],
+        legend: {
+          visible: true,
+          horizontalAlignment: 'center',
+          verticalAlignment: 'bottom',
+          orientation: 'horizontal',
+          font: { size: 11 },
+          itemTextPosition: 'right'
+        },
+        margin: { left: 20, right: 20, top: 10, bottom: 10 },
+        argumentAxis: {
+          discreteAxisDivisionMode: 'crossLabels',
+          grid: { visible: true, color: '#e5e7eb' }
+        },
+        valueAxis: {
+          grid: { color: '#e5e7eb' },
+          min: 0, max: 100, 
+          tickInterval: 20
+        },
+        tooltip: {
+          enabled: true,
+          customizeTooltip: (arg) => {
+            const total = arg.point.data.total || 0;
+            const v = arg.value || 0;
+            const pct = total ? ((v / total) * 100).toFixed(1) : '0.0';
+            return { text: `${arg.argumentText}\n${arg.seriesName}: ${v} (${pct}%)` };
+          }
+        }
+      }).dxChart('instance');
+
+      
+      DevExpress.utils.resizeCallbacks.add(() => {
+        if (this.chart) this.chart.render();
+      });
+    },
+
+   
+    setData(newData) {
+      this.data = newData.slice();
+      if (this.chart) {
+        this.chart.option('dataSource', this.data);
+        this.chart.render();
+      }
+    }
+  };
+
+  // DOM ready
+  $(function(){ win.CallCenterRouting.init(); });
+})(window, jQuery)
+  </script>

@@ -1,0 +1,578 @@
+<div class="conts-area-wrap full period">
+  <div class="conts-area">
+    <div class="form-group">
+        <div class="select-field">
+          <select class="select" title="자원 범위" name="select1">
+              <option>테넌트명</option>
+              <option>테넌트명1</option>
+              <option>테넌트명2</option>
+            </select>
+        </div>
+        <div class="select-field">
+          <select class="select" title="인입 채널"  name="select2">
+            <option>채널</option>
+            <option>채널1</option>
+            <option>채널2</option>
+          </select>
+        </div>
+        <div class="chk-field">        
+            <label for="chk1" class="chk-wrap">
+                <input type="checkbox" name="chk1" id="chk1" class="chk">
+                <i class="chk-icon"></i>
+                <span class="chk-label">시간범위</span>
+            </label>
+        </div>
+    </div>
+    <div class="periodSet-area">
+        <div class="periodSet-datepicker">
+          <div id="from-selected-date"></div>
+          <div class="term">~</div>
+          <div id="to-selected-date"></div>
+        </div>
+        <div class="periodSet-btns">
+          <button type="button" data-search-flag="D">오늘</button>
+          <button type="button" data-search-flag="Y">어제</button>
+          <button type="button" data-search-flag="W">일주일</button>
+          <button type="button" data-search-flag="M">30일</button>
+           <button type="button">당월</button>
+        </div>
+        <button type="button" class="btn primary">조회</button>
+      </div>
+  </div>
+</div>
+<div class="conts-area-wrap full">
+  <div class="conts-area h-full">
+    <div class="tit">라우팅 봇 서비스 현황</div>
+    <div class="routing-wrap">
+        <div class="conts-area-donut">
+          <div class="donut-box-wrap">
+            <div class="donut-box">
+                  <div id="donutChart-1"></div>
+                  <div class="center-text">
+                      <span class="label">총인입</span>
+                      <strong class="value">100<span>%</span></strong>
+                  </div>
+              </div>
+          </div>
+          <div class="donut-box-wrap">
+            <div class="donut-box">
+                <div id="donutChart-2"></div>
+                <div class="center-text">
+                    <span class="label">총인입</span>
+                    <strong class="value">100<span>%</span></strong>
+                </div>
+            </div>
+          </div>
+          <div class="donut-box-wrap">
+            <div class="donut-box">
+                <div id="donutChart-3"></div>
+                <div class="center-text">
+                    <span class="label">총인입</span>
+                    <strong class="value">100<span>%</span></strong>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="conts-area-grid">
+            <div id="barChart" class="dx-bar-custom"></div>
+            <div id="lineChart" class="dx-line-custom"></div>
+            <div id="gridContainer" class="dx-grid-custom"></div>
+        </div>
+        </div>
+  </div>
+</div> 
+<script>
+(function() {
+    // 전역 네임스페이스로 충돌 방지
+    if (window.CallCenterDashboard) {
+        window.CallCenterDashboard.destroy();
+    }
+    
+    window.CallCenterDashboard = {
+        charts: {
+            donut1: null,
+            donut2: null,
+            donut3: null,
+            barChart: null,
+            lineChart: null,
+            dataGrid: null
+        },
+        
+        // 기존 인스턴스 정리
+        destroy: function() {
+            Object.values(this.charts).forEach(chart => {
+                if (chart && chart.dispose) {
+                    chart.dispose();
+                }
+            });
+            
+            this.charts = {
+                donut1: null,
+                donut2: null,
+                donut3: null,
+                barChart: null,
+                lineChart: null,
+                dataGrid: null
+            };
+        },
+        
+        init: function() {
+            this.destroy();
+            
+            setTimeout(() => {
+                this.setupData();
+                this.createDonutCharts();
+                this.createBarChart();
+                this.createLineChart();
+                this.createDataGrid();
+            }, 100);
+        },
+        
+        setupData: function() {
+            // 콜센터 통계 데이터
+            this.callCenterData = [
+                {
+                    ID: 1,
+                    분: '0:00',
+                    총인입: 100,
+                    총키워드수: 30,
+                    최초인입1_건수: 90, 최초인입1_퍼센트: 90.00,
+                    최초인입2_건수: 10, 최초인입2_퍼센트: 10.00,
+                    콜봇응대_건수: 50, 콜봇응대_퍼센트: 50.00,
+                    상담사전환_건수: 20, 상담사전환_퍼센트: 20.00,
+                    IVR전환_건수: 20, IVR전환_퍼센트: 20.00,
+                    FALLBACK_건수: 10, FALLBACK_퍼센트: 10.00,
+                    비정상종료_건수: 0, 비정상종료_퍼센트: 0.00,
+                    IVR처리_건수: 35, IVR처리_퍼센트: 35.00,
+                    상담사응대_건수: 25, 상담사응대_퍼센트: 25.00,
+                    고객포기_건수: 20, 고객포기_퍼센트: 20.00,
+                    미처리_건수: 20, 미처리_퍼센트: 20.00
+                },
+                {
+                    ID: 2,
+                    분: '0:01',
+                    총인입: 120,
+                    총키워드수: 35,
+                    최초인입1_건수: 95, 최초인입1_퍼센트: 79.17,
+                    최초인입2_건수: 25, 최초인입2_퍼센트: 20.83,
+                    콜봇응대_건수: 60, 콜봇응대_퍼센트: 50.00,
+                    상담사전환_건수: 30, 상담사전환_퍼센트: 25.00,
+                    IVR전환_건수: 30, IVR전환_퍼센트: 25.00,
+                    FALLBACK_건수: 0, FALLBACK_퍼센트: 0.00,
+                    비정상종료_건수: 0, 비정상종료_퍼센트: 0.00,
+                    IVR처리_건수: 50, IVR처리_퍼센트: 41.67,
+                    상담사응대_건수: 35, 상담사응대_퍼센트: 29.17,
+                    고객포기_건수: 20, 고객포기_퍼센트: 16.67,
+                    미처리_건수: 15, 미처리_퍼센트: 12.50
+                },
+                {
+                    ID: 3,
+                    분: '0:02',
+                    총인입: 85,
+                    총키워드수: 28,
+                    최초인입1_건수: 75, 최초인입1_퍼센트: 88.24,
+                    최초인입2_건수: 10, 최초인입2_퍼센트: 11.76,
+                    콜봇응대_건수: 40, 콜봇응대_퍼센트: 47.06,
+                    상담사전환_건수: 20, 상담사전환_퍼센트: 23.53,
+                    IVR전환_건수: 25, IVR전환_퍼센트: 29.41,
+                    FALLBACK_건수: 0, FALLBACK_퍼센트: 0.00,
+                    비정상종료_건수: 0, 비정상종료_퍼센트: 0.00,
+                    IVR처리_건수: 45, IVR처리_퍼센트: 52.94,
+                    상담사응대_건수: 25, 상담사응대_퍼센트: 29.41,
+                    고객포기_건수: 10, 고객포기_퍼센트: 11.76,
+                    미처리_건수: 5, 미처리_퍼센트: 5.88
+                }
+            ];
+
+            // 도넛 차트 데이터
+            this.donut1Data = [
+                { category: '최초인입', value: 90 },
+                { category: '재인입', value: 10 }
+            ];
+
+            this.donut2Data = [
+                { category: '콜봇응대', value: 30 },
+                { category: '상담사전환', value: 20 },
+                { category: 'IVR전환', value: 20 },
+                { category: 'FALLBACK', value: 15 },
+                { category: '비정상종료', value: 15 }
+            ];
+
+            this.donut3Data = [
+                { category: 'IVR처리', value: 35 },
+                { category: '상담사응대', value: 25 },
+                { category: '고객포기', value: 20 },
+                { category: '미처리', value: 20 }
+            ];
+
+            // 통계 항목 정의
+            this.statColumns = [
+                { key: '최초인입1', title: '최초인입1', highlight: true },
+                { key: '최초인입2', title: '최초인입2', highlight: true },
+                { key: '콜봇응대', title: '콜봇응대' },
+                { key: '상담사전환', title: '상담사전환' },
+                { key: 'IVR전환', title: 'IVR전환' },
+                { key: 'FALLBACK', title: 'FALLBACK' },
+                { key: '비정상종료', title: '비정상종료' },
+                { key: 'IVR처리', title: 'IVR처리', highlight: true },
+                { key: '상담사응대', title: '상담사응대', highlight: true },
+                { key: '고객포기', title: '고객포기', highlight: true },
+                { key: '미처리', title: '미처리', highlight: true }
+            ];
+        },
+        
+        // 도넛 차트 생성
+        createDonutChart: function(containerId, data, palette) {
+            const container = $(containerId);
+            if (!container.length) return null;
+            
+            return container.dxPieChart({
+                dataSource: data,
+                palette: palette,
+                series: [{
+                    type: 'doughnut',
+                    argumentField: 'category',
+                    valueField: 'value',
+                    innerRadius: 0.6,
+                    label: {
+                        visible: true,
+                        backgroundColor: "none",
+                        position: 'inside',
+                        format: {
+                            type: 'fixedPoint',
+                            precision: 0
+                        },
+                        font: {
+                            size: 11,
+                            color: 'white',
+                            weight: 'bold'
+                        },
+                        connector: {
+                            visible: false
+                        }
+                    }
+                }],
+                legend: {
+                    visible: true,
+                    orientation: 'vertical',
+                    horizontalAlignment: 'right',
+                    verticalAlignment: 'center',
+                    itemsAlignment: 'left',
+                    margin: 15,
+                    font: {
+                        size: 11
+                    }
+                },
+                tooltip: {
+                    enabled: false,
+                },
+                animation: {
+                    enabled: true,
+                    duration: 1000
+                },
+                size: {
+                    width: 300,
+                    height: 160
+                },
+                onDrawn: function(e) {
+                    setTimeout(function() {
+                        const chartInstance = e.component;
+                        const series = chartInstance.getAllSeries()[0];
+                        
+                        if (series) {
+                            const center = series.getVisibleArea();
+                            const centerX = (center.minX + center.maxX) / 2;
+                            const centerY = (center.minY + center.maxY) / 2;
+                            
+                            $(e.element).closest('.donut-box').find('.center-text').css({
+                                left: centerX + 'px',
+                                top: centerY + 'px'
+                            });
+                        }
+                    }, 100);
+                }
+            }).dxPieChart("instance");
+        },
+        
+        createDonutCharts: function() {
+            // 도넛 차트들 생성
+            this.charts.donut1 = this.createDonutChart('#donutChart-1', this.donut1Data, ['#FF9D96', '#F9CBC8']);
+            this.charts.donut2 = this.createDonutChart('#donutChart-2', this.donut2Data, ['#ACD7FE', '#8FC8FC', '#58ADFB', '#3BA0FB', '#1B90FA']);
+            this.charts.donut3 = this.createDonutChart('#donutChart-3', this.donut3Data, ['#D4E9B9', '#B0D87D', '#93C453', '#84B24A']);
+        },
+        
+        // 바차트용 데이터 생성
+        createBarChartData: function() {
+            const barData = [];
+            this.statColumns.forEach(stat => {
+                let totalCount = 0;
+                this.callCenterData.forEach(row => {
+                    totalCount += row[stat.key + '_건수'];
+                });
+                barData.push({
+                    category: stat.title,
+                    value: totalCount
+                });
+            });
+            return barData;
+        },
+        
+        // 바차트 생성
+        createBarChart: function() {
+            const barData = this.createBarChartData();
+            
+            this.charts.barChart = $('#barChart').dxChart({
+                dataSource: barData,
+                commonSeriesSettings: {
+                    argumentField: "category",
+                    type: "bar"
+                },
+                series: [{
+                    valueField: "value",
+                    name: "건수",
+                    color: "#73BCFF"
+                }],
+                barGroupWidth: 22,
+                legend: {
+                    visible: false
+                },
+                argumentAxis: {
+                    grid: {
+                        visible: false
+                    },
+                    label: {
+                        rotationAngle: -45,
+                        font: {
+                            size: 11
+                        }
+                    }
+                },
+                valueAxis: {
+                    grid: {
+                        color: "#e0e0e0"
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip: function(arg) {
+                        return {
+                            text: arg.argumentText + ": " + arg.value + "건"
+                        };
+                    }
+                }
+            }).dxChart("instance");
+        },
+        
+        // 라인차트용 데이터 생성
+        createLineChartData: function() {
+            return this.callCenterData.map(row => ({
+                time: row['분'],
+                총키워드수: row['총키워드수'],
+                콜봇응대: row['콜봇응대_퍼센트'],
+                상담사전환: row['상담사전환_퍼센트'],
+                IVR처리: row['IVR처리_퍼센트'],
+                상담사응대: row['상담사응대_퍼센트']
+            }));
+        },
+        
+        // 라인차트 생성
+        createLineChart: function() {
+            const lineData = this.createLineChartData();
+            
+            this.charts.lineChart = $('#lineChart').dxChart({
+                dataSource: lineData,
+                commonSeriesSettings: {
+                    argumentField: "time",
+                    type: "line",
+                    point: {
+                        visible: true,
+                        size: 4
+                    }
+                },
+                series: [
+                    { valueField: "총키워드수", name: "총키워드수", color: "#88B3FC" },
+                    { valueField: "콜봇응대", name: "콜봇응대(%)", color: "#FF9999" },
+                    { valueField: "IVR처리", name: "IVR처리(%)", color: "#99CC99" }
+                ],
+                legend: {
+                    visible: true,
+                    position: "inside",
+                    horizontalAlignment: "right",
+                    verticalAlignment: "top",
+                    font: {
+                        size: 11
+                    }
+                },
+                argumentAxis: {
+                    grid: {
+                        visible: false
+                    }
+                },
+                valueAxis: {
+                    grid: {
+                        color: "#e0e0e0"
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip: function(arg) {
+                        const unit = arg.seriesName.includes('%') ? '%' : '개';
+                        return {
+                            text: arg.seriesName + ": " + arg.value + unit
+                        };
+                    }
+                }
+            }).dxChart("instance");
+        },
+        
+        // 기본 컬럼 생성
+        createBasicColumns: function() {
+            return [
+                {
+                    dataField: '분',
+                    caption: '분',
+                    width: 80,
+                    alignment: "center",
+                    cssClass: "vertical-center",
+                    allowSorting: true
+                },
+                {
+                    dataField: '총인입',
+                    caption: '총인입',
+                    width: 80,
+                    alignment: "center",
+                    cssClass: "vertical-center",
+                    allowSorting: true
+                },
+                {
+                    dataField: '총키워드수',
+                    caption: '총키워드수',
+                    width: 100,
+                    alignment: "center",
+                    cssClass: "vertical-center",
+                    allowSorting: true
+                }
+            ];
+        },
+        
+        // 통계 컬럼 생성
+        createStatColumns: function() {
+            return this.statColumns.map(stat => ({
+                caption: stat.title,
+                alignment: "center",
+                cssClass: stat.highlight ? "highlight-primary" : "",
+                columns: [
+                    {
+                        dataField: stat.key + '_건수',
+                        caption: '건수',
+                        width: 60,
+                        alignment: "center",
+                        cssClass: stat.highlight ? "highlight-primary" : ""
+                    },
+                    {
+                        dataField: stat.key + '_퍼센트',
+                        caption: '%',
+                        width: 60,
+                        format: 'fixedPoint',
+                        precision: 2,
+                        alignment: "center",
+                        cssClass: stat.highlight ? "highlight-primary" : ""
+                    }
+                ]
+            }));
+        },
+        
+        // 합계 항목 생성
+        createSummaryItems: function() {
+            const totalItems = [
+                { column: '분', displayFormat: '1인당 avg' },
+                { column: '총인입', summaryType: 'avg', displayFormat: '00.0' },
+                { column: '총키워드수', summaryType: 'avg', displayFormat: '00.0' }
+            ];
+
+            this.statColumns.forEach(stat => {
+                totalItems.push({
+                    column: stat.key + '_건수',
+                    summaryType: 'avg',
+                    displayFormat: '00.0'
+                });
+                totalItems.push({
+                    column: stat.key + '_퍼센트',
+                    summaryType: 'avg',
+                    displayFormat: '00.0'
+                });
+            });
+
+            return totalItems;
+        },
+        
+        // 그룹 합계 항목 생성
+        createGroupItems: function() {
+            const groupItems = [
+                {
+                    column: '분',
+                    displayFormat: 'Sum :',
+                    showInGroupFooter: false,
+                    alignByColumn: true
+                },
+                {
+                    column: '총인입',
+                    summaryType: 'sum',
+                    displayFormat: '000',
+                    showInGroupFooter: false,
+                    alignByColumn: true
+                },
+                {
+                    column: '총키워드수',
+                    summaryType: 'sum',
+                    displayFormat: '000',
+                    showInGroupFooter: false,
+                    alignByColumn: true
+                }
+            ];
+
+            this.statColumns.forEach(stat => {
+                groupItems.push({
+                    column: stat.key + '_건수',
+                    summaryType: 'sum',
+                    displayFormat: '000',
+                    showInGroupFooter: false,
+                    alignByColumn: true
+                });
+                groupItems.push({
+                    column: stat.key + '_퍼센트',
+                    summaryType: 'avg',
+                    displayFormat: '00.0',
+                    showInGroupFooter: false,
+                    alignByColumn: true
+                });
+            });
+
+            return groupItems;
+        },
+        
+        // 데이터그리드 생성
+        createDataGrid: function() {
+            const columns = this.createBasicColumns().concat(this.createStatColumns());
+            
+            this.charts.dataGrid = $('#gridContainer').dxDataGrid({
+                dataSource: this.callCenterData,
+                keyExpr: 'ID',
+                showBorders: true,
+                columnAutoWidth: true,
+                sorting: {
+                    mode: 'multiple'
+                },
+                summary: {
+                    groupItems: this.createGroupItems(),
+                    totalItems: this.createSummaryItems()
+                },
+                columns: columns
+            }).dxDataGrid("instance");
+        }
+    };
+    
+    // 초기화 실행
+    window.CallCenterDashboard.init();
+})();
+</script>

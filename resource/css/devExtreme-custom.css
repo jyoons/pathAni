@@ -16,3 +16,62 @@
 .periodSet-datepicker .dx-dropdowneditor.dx-state-hover:not(.dx-custom-button-hovered) .dx-dropdowneditor-icon,
 .periodSet-datepicker .dx-dropdowneditor-button.dx-state-active .dx-dropdowneditor-icon,
 .periodSet-datepicker .dx-dropdowneditor.dx-dropdowneditor-active .dx-dropdowneditor-icon{background-color:transparent;}
+.dx-calendar-cell.dx-calendar-selected-date span{background-color:var(--color-btn-primary) !important; border:0 !important;}
+
+/*grid*/
+.wrapper .dx-widget {font-size: 13px;}
+/* === DataGrid: Header === */
+.dx-grid-custom .dx-datagrid-headers { border: none; background-color: #E7ECF5; border-radius: 10px; overflow: hidden; }
+.dx-grid-custom .dx-datagrid-headers .dx-datagrid-table .dx-row>td { background-color: #E7ECF5; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
+.dx-grid-custom .dx-datagrid-headers .dx-datagrid-text-content { font-weight: 500; color: #4D5874; }
+.dx-grid-custom .dx-datagrid-headers td { text-align: center !important; }
+.dx-grid-custom .dx-datagrid-borders>.dx-datagrid-headers{border-top:none;}
+/* 강조 헤더 셀 */
+.dx-grid-custom .dx-datagrid-headers .dx-datagrid-table .dx-row>td.highlight-primary { background-color: #F5E6E6; color: #736363; }
+/* 합계 강조 셀 */
+.dx-grid-custom .dx-data-row .highlight-secondary { background-color: #FEFCF7; } 
+/* === DataGrid: Borders reset === */
+.dx-grid-custom .dx-datagrid-borders .dx-datagrid-rowsview, .dx-grid-custom .dx-datagrid-headers+.dx-datagrid-rowsview, .dx-datagrid-rowsview.dx-datagrid-after-headers { border-top: none; }
+.dx-grid-custom .dx-datagrid-borders>.dx-datagrid-headers, .dx-grid-custom .dx-datagrid-borders>.dx-datagrid-rowsview, .dx-grid-custom .dx-datagrid-borders>.dx-datagrid-total-footer { border-left: none; border-right: none; }
+.dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):hover:not(.dx-row-lines)>td, .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):not(.dx-row-lines)>td { border-top: none; }
+.dx-datagrid .dx-datagrid-headers .dx-row td.dx-pointer-events-none, .dx-datagrid .dx-datagrid-rowsview .dx-data-row td.dx-pointer-events-none, .dx-datagrid .dx-datagrid-rowsview .dx-freespace-row td.dx-pointer-events-none, .dx-datagrid .dx-datagrid-rowsview .dx-header-row td.dx-pointer-events-none, .dx-datagrid .dx-datagrid-rowsview .dx-virtual-row td.dx-pointer-events-none { border: none; }
+/* === DataGrid: Rows / Columns === */
+.dx-grid-custom .dx-datagrid-rowsview .dx-row { border-bottom: 1px solid #EBEBEB; }
+.dx-grid-custom .dx-datagrid .dx-column-lines>td { border-left: none; border-right: 1px solid #EBEBEB; }
+.dx-grid-custom .dx-datagrid .dx-column-lines>td:last-child, .dx-grid-custom .dx-datagrid-total-footer td:last-child { border-right: none; }
+.dx-grid-custom .dx-datagrid-borders>.dx-datagrid-rowsview { border-bottom: none; }
+/* === DataGrid: Total Footer === */
+.dx-grid-custom .dx-datagrid-borders>.dx-datagrid-total-footer { border-bottom: 1px solid #EBEBEB; }
+.dx-grid-custom .dx-datagrid-total-footer>.dx-datagrid-content { padding: 0; }
+.dx-grid-custom .dx-datagrid-total-footer { background-color: #FEFAF0 !important; font-weight: bold; }
+.dx-grid-custom .dx-datagrid-total-footer td { border-right: 1px solid #EBEBEB; background-color: #FEFAF0 !important;}
+/* === Summary text === */
+.dx-grid-custom .dx-datagrid-summary-item { font-weight: 400; color: #444; }
+/* 행 선택 시 배경색 변경 */
+.dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):hover:not(.dx-row-lines)>td,.dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):not(.dx-row-lines)>td{border-top: none;}
+.dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):hover>td, .dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):hover>tr>td, .dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused)>td, .dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused)>tr>td { background-color: transparent; color: #444; }
+.dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused).dx-column-lines>td, .dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused).dx-column-lines>tr>td, .dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):hover.dx-column-lines>td, .dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused):hover.dx-column-lines>tr>td { border-left-color: #EBEBEB; border-right-color: #EBEBEB; }
+.dx-grid-custom .dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-focused)>td.highlight-secondary { background-color: #FEFCF7; }
+/* 체크박스 체크 시 색상 변경 */
+.dx-grid-custom .dx-checkbox-checked .dx-checkbox-icon { color: #444; }
+.dx-grid-custom .dx-checkbox-indeterminate .dx-checkbox-icon::before { color: #444; background-color: #444; }
+/* === Utils === */
+.vertical-center { vertical-align: middle !important; }
+
+/*barchart*/
+.dxc-val-grid path {stroke-dasharray: 3 3;stroke-width: 1;}
+
+/* grid paging */
+.dx-grid-custom.paging .dx-datagrid-headers .dx-datagrid-table .dx-row>td{border-right:0;}
+.dx-grid-custom.paging .dx-pager .dx-page-sizes{color:#777;}
+.dx-grid-custom.paging .dx-pager .dx-page-sizes .dx-page-size{padding:3px 5px 4px 6px;}
+.dx-grid-custom.paging .dx-pager .dx-page, 
+.dx-grid-custom.paging .dx-pager .dx-page-size{border-radius:50%;}
+.dx-grid-custom.paging .dx-pager .dx-page-sizes .dx-selection, 
+.dx-grid-custom.paging .dx-pager .dx-pages .dx-selection{color:var(--color-text-gray1); background:#eee;}
+.dx-grid-custom.paging .dx-pager .dx-pages .dx-page{padding:2px 8px 3px;}
+.dx-grid-custom.paging .dx-datagrid {color:var(--color-text-gray);}
+.dx-grid-custom.paging .dx-datagrid .dx-column-lines>td{vertical-align: middle;}
+.dx-grid-custom.paging .dx-scrollable-scrollbars-alwaysvisible.dx-scrollable-both>.dx-scrollable-wrapper>.dx-scrollable-container>.dx-scrollable-content, 
+.dx-grid-custom.paging .dx-scrollable-scrollbars-alwaysvisible.dx-scrollable-horizontal>.dx-scrollable-wrapper>.dx-scrollable-container>.dx-scrollable-content{padding-bottom:0;}
+.dx-grid-custom.paging .dx-pager{padding-top:12px; padding-bottom:0;}

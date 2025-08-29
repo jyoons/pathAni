@@ -1,0 +1,388 @@
+<div class="conts-area-wrap full period">
+  <div class="conts-area">
+     <div class="periodSet-area">
+        <div class="periodSet-datepicker">
+          <div id="from-selected-date"></div>
+          <div class="term">~</div>
+          <div id="to-selected-date"></div>
+        </div>
+        <div class="periodSet-btns">
+          <button type="button" data-search-flag="D">오늘</button>
+          <button type="button" data-search-flag="Y">어제</button>
+          <button type="button" data-search-flag="W">일주일</button>
+          <button type="button" data-search-flag="M">30일</button>
+           <button type="button">당월</button>
+        </div>
+        <button type="button" class="btn primary">조회</button>
+      </div>
+  </div>
+</div>
+<div class="conts-area-wrap">
+  <div class="conts-area">
+    <div class="tit">월별</div>
+    <div class="chart-container" id="monthlyChart"></div>
+    <div class="grid-container dx-grid-custom" id="monthlyGrid"></div>
+  </div>
+  <div class="conts-area">
+    <div class="tit">요일별</div>
+    <div class="chart-container" id="weeklyChart"></div>
+    <div class="grid-container dx-grid-custom" id="weeklyGrid"></div>
+  </div>
+  <div class="conts-area">
+    <div class="tit">일별</div>
+    <div class="chart-container" id="dailyChart"></div>
+    <div class="grid-container dx-grid-custom" id="dailyGrid"></div>
+  </div>
+  <div class="conts-area">
+    <div class="tit">시간대별</div>
+    <div class="chart-container" id="hourlyChart"></div>
+    <div class="grid-container dx-grid-custom" id="hourlyGrid"></div>
+  </div>
+</div> 
+
+<script>
+(function() {
+    // 전역 네임스페이스로 충돌 방지
+    if (window.AIKeywordPage) {
+        window.AIKeywordPage.destroy();
+    }
+    
+    window.AIKeywordPage = {
+        charts: {
+            monthly: null,
+            weekly: null,
+            daily: null,
+            hourly: null
+        },
+        grids: {
+            monthly: null,
+            weekly: null,
+            daily: null,
+            hourly: null
+        },
+        
+        // 기존 인스턴스 정리
+        destroy: function() {
+            Object.values(this.charts).forEach(chart => {
+                if (chart && chart.dispose) {
+                    chart.dispose();
+                }
+            });
+            Object.values(this.grids).forEach(grid => {
+                if (grid && grid.dispose) {
+                    grid.dispose();
+                }
+            });
+            
+            this.charts = { monthly: null, weekly: null, daily: null, hourly: null };
+            this.grids = { monthly: null, weekly: null, daily: null, hourly: null };
+        },
+        
+        init: function() {
+            // 기존 인스턴스가 있으면 정리
+            this.destroy();
+            
+            // DOM이 준비될 때까지 잠시 대기
+            setTimeout(() => {
+                this.setupData();
+                this.createCharts();
+                this.createGrids();
+            }, 100);
+        },
+        
+        setupData: function() {
+            // 공통 지표 데이터
+            this.indicators = [
+                { id: 1, name: '회원정보찾기', selected: true, color: '#7792FF' },
+                { id: 2, name: '다운로드', selected: true, color: '#FFB153' },
+                { id: 3, name: '아웃바운드', selected: true, color: '#88B3FC' },
+                { id: 4, name: 'VOD', selected: true, color: '#FF928A' },
+                { id: 5, name: '게임', selected: true, color: '#8BAE5F' },
+                { id: 6, name: '코인', selected: true, color: '#9082FF' },
+                { id: 7, name: '구매', selected: true, color: '#63B9CA' },
+                { id: 8, name: '취소', selected: true, color: '#FF98F5' },
+            ];
+
+            // 월별 데이터 (1월~12월)
+            this.monthlyData = [
+                { period: '1월', 회원정보찾기: 320, 다운로드: 280, 아웃바운드: 250, VOD: 180, 게임: 220, 코인: 150, 구매: 190, 취소: 120, 컴플레인: 100, 문의: 240 },
+                { period: '2월', 회원정보찾기: 290, 다운로드: 310, 아웃바운드: 270, VOD: 200, 게임: 240, 코인: 170, 구매: 210, 취소: 140, 컴플레인: 110, 문의: 260 },
+                { period: '3월', 회원정보찾기: 350, 다운로드: 340, 아웃바운드: 300, VOD: 220, 게임: 280, 코인: 190, 구매: 240, 취소: 160, 컴플레인: 130, 문의: 290 },
+                { period: '4월', 회원정보찾기: 380, 다운로드: 370, 아웃바운드: 320, VOD: 250, 게임: 300, 코인: 210, 구매: 270, 취소: 180, 컴플레인: 150, 문의: 320 },
+                { period: '5월', 회원정보찾기: 420, 다운로드: 400, 아웃바운드: 350, VOD: 280, 게임: 340, 코인: 240, 구매: 300, 취소: 200, 컴플레인: 170, 문의: 350 },
+                { period: '6월', 회원정보찾기: 390, 다운로드: 380, 아웃바운드: 340, VOD: 260, 게임: 320, 코인: 220, 구매: 280, 취소: 190, 컴플레인: 160, 문의: 330 }
+            ];
+
+            // 요일별 데이터 (월~일)
+            this.weeklyData = [
+                { period: '월', 회원정보찾기: 85, 다운로드: 78, 아웃바운드: 65, VOD: 52, 게임: 48, 코인: 35, 구매: 42, 취소: 28, 컴플레인: 25, 문의: 62 },
+                { period: '화', 회원정보찾기: 92, 다운로드: 85, 아웃바운드: 72, VOD: 58, 게임: 55, 코인: 42, 구매: 48, 취소: 32, 컴플레인: 28, 문의: 68 },
+                { period: '수', 회원정보찾기: 88, 다운로드: 82, 아웃바운드: 68, VOD: 55, 게임: 52, 코인: 38, 구매: 45, 취소: 30, 컴플레인: 26, 문의: 65 },
+                { period: '목', 회원정보찾기: 95, 다운로드: 88, 아웃바운드: 75, VOD: 62, 게임: 58, 코인: 45, 구매: 52, 취소: 35, 컴플레인: 32, 문의: 72 },
+                { period: '금', 회원정보찾기: 102, 다운로드: 95, 아웃바운드: 82, VOD: 68, 게임: 65, 코인: 52, 구매: 58, 취소: 42, 컴플레인: 38, 문의: 78 },
+                { period: '토', 회원정보찾기: 45, 다운로드: 65, 아웃바운드: 38, VOD: 85, 게임: 92, 코인: 75, 구매: 68, 취소: 22, 컴플레인: 18, 문의: 55 },
+                { period: '일', 회원정보찾기: 38, 다운로드: 58, 아웃바운드: 32, VOD: 78, 게임: 88, 코인: 68, 구매: 62, 취소: 18, 컴플레인: 15, 문의: 48 }
+            ];
+
+            // 일별 데이터 (1일~31일)
+            this.dailyData = [];
+            for(let i = 1; i <= 31; i++) {
+                const day = i + '일';
+                this.dailyData.push({
+                    period: day,
+                    회원정보찾기: Math.floor(Math.random() * 30) + 10,
+                    다운로드: Math.floor(Math.random() * 25) + 15,
+                    아웃바운드: Math.floor(Math.random() * 20) + 8,
+                    VOD: Math.floor(Math.random() * 15) + 5,
+                    게임: Math.floor(Math.random() * 25) + 10,
+                    코인: Math.floor(Math.random() * 18) + 7,
+                    구매: Math.floor(Math.random() * 20) + 8,
+                    취소: Math.floor(Math.random() * 12) + 3,
+                    컴플레인: Math.floor(Math.random() * 10) + 2,
+                    문의: Math.floor(Math.random() * 22) + 12
+                });
+            }
+
+            // 시간대별 데이터 (0시~23시)
+            this.hourlyData = [];
+            for(let i = 0; i <= 23; i++) {
+                const hour = i + '시';
+                const isBusinessHour = i >= 9 && i <= 18;
+                const multiplier = isBusinessHour ? 1.5 : 0.5;
+                
+                this.hourlyData.push({
+                    period: hour,
+                    회원정보찾기: Math.floor((Math.random() * 15 + 5) * multiplier),
+                    다운로드: Math.floor((Math.random() * 12 + 8) * multiplier),
+                    아웃바운드: Math.floor((Math.random() * 10 + 4) * multiplier),
+                    VOD: Math.floor((Math.random() * 20 + 10) * (isBusinessHour ? 0.8 : 1.2)),
+                    게임: Math.floor((Math.random() * 25 + 15) * (isBusinessHour ? 0.6 : 1.4)),
+                    코인: Math.floor((Math.random() * 8 + 3) * multiplier),
+                    구매: Math.floor((Math.random() * 12 + 6) * multiplier),
+                    취소: Math.floor((Math.random() * 6 + 2) * multiplier),
+                    컴플레인: Math.floor((Math.random() * 5 + 1) * multiplier),
+                    문의: Math.floor((Math.random() * 18 + 8) * multiplier)
+                });
+            }
+
+            // 각 차트별 그리드 데이터 생성
+            this.monthlyGridData = JSON.parse(JSON.stringify(this.indicators));
+            this.weeklyGridData = JSON.parse(JSON.stringify(this.indicators));
+            this.dailyGridData = JSON.parse(JSON.stringify(this.indicators));
+            this.hourlyGridData = JSON.parse(JSON.stringify(this.indicators));
+        },
+        
+        // 차트 생성 함수
+        createChart: function(containerId, data, gridData, title) {
+            const container = $(containerId);
+            if (!container.length) return null;
+            
+            // 컨테이너 크기 확보
+            if (container.height() === 0) {
+                container.height(180);
+            }
+            
+            return container.dxChart({
+                dataSource: data,
+                commonSeriesSettings: {
+                    type: "line",
+                    argumentField: "period",
+                    point: {
+                        visible: true,
+                        size: 4
+                    }
+                },
+                series: gridData.filter(item => item.selected).map(item => ({
+                    valueField: item.name,
+                    name: item.name,
+                    color: item.color
+                })),
+                legend: {
+                    visible: true,
+                    position: "outside",
+                    horizontalAlignment: "right",
+                    verticalAlignment: "top",
+                    font: {
+                        size: 12
+                    }
+                },
+                valueAxis: {
+                    color: "#bbb",
+                    label: {
+                        font: {
+                            color: "#777",
+                            size: 13,
+                        }
+                    }
+                },
+                argumentAxis: {
+                    color: "#bbb",
+                    label: {
+                        font: {
+                            color: "#777",
+                            size: 13,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip: function(arg) {
+                        return {
+                            text: arg.seriesName + ": " + arg.value + "건"
+                        };
+                    }
+                },
+                size: {
+                    height: 180
+                }
+            }).dxChart("instance");
+        },
+
+        // 그리드 생성 함수
+        createGrid: function(containerId, data, gridData, updateChartCallback) {
+            const container = $(containerId);
+            if (!container.length) return null;
+            
+            const fixedColumnWidth = 200;
+            const availableWidth = container.parent().width() - 60;
+            const dataColumnCount = data.length;
+            const dataColumnWidth = dataColumnCount > 0 ? Math.max(50, (availableWidth - fixedColumnWidth) / dataColumnCount) : 50;
+            
+            const columns = [
+                {
+                    dataField: "name",
+                    caption: "지표명",
+                    width: 120,
+                    fixed: true,
+                    fixedPosition: "left"
+                },
+                {
+                    dataField: "total",
+                    caption: "합계",
+                    width: 80,
+                    fixed: true,
+                    fixedPosition: "left",
+                    cssClass: "highlight-secondary",
+                    calculateCellValue: function(rowData) {
+                        let total = 0;
+                        data.forEach(dateItem => {
+                            total += dateItem[rowData.name] || 0;
+                        });
+                        return total;
+                    }
+                }
+            ];
+
+            // 동적으로 기간 컬럼들 추가
+            data.forEach(item => {
+                columns.push({
+                    dataField: item.period,
+                    caption: item.period,
+                    minWidth: 50,
+                    calculateCellValue: function(rowData) {
+                        return item[rowData.name] || 0;
+                    }
+                });
+            });
+
+            // 합계 행 설정
+            const summaryItems = [
+                {
+                    column: "name",
+                    summaryType: "count",
+                    displayFormat: "합계"
+                },
+                {
+                    column: "total",
+                    summaryType: "sum",
+                    displayFormat: "{0}"
+                }
+            ];
+
+            // 각 기간별 합계 추가
+            data.forEach(item => {
+                summaryItems.push({
+                    column: item.period,
+                    summaryType: "sum",
+                    displayFormat: "{0}"
+                });
+            });
+
+            return container.dxDataGrid({
+                dataSource: gridData,
+                keyExpr: "id",
+                showBorders: true,
+                columnFixing: {
+                    enabled: true
+                },
+                selection: {
+                    mode: "multiple",
+                    showCheckBoxesMode: "always"
+                },
+                onSelectionChanged: function(e) {
+                    const selectedRowKeys = e.selectedRowKeys;
+                    gridData.forEach(item => item.selected = false);
+                    selectedRowKeys.forEach(key => {
+                        const item = gridData.find(data => data.id === key);
+                        if (item) item.selected = true;
+                    });
+                    if (updateChartCallback) updateChartCallback();
+                },
+                columns: columns,
+                paging: {
+                    enabled: false
+                },
+                scrolling: {
+                    mode: "standard"
+                },
+                summary: {
+                    totalItems: summaryItems
+                },
+                onContentReady: function(e) {
+                    const allKeys = gridData.map(item => item.id);
+                    e.component.selectRows(allKeys, false);
+                }
+            }).dxDataGrid("instance");
+        },
+        
+        createCharts: function() {
+            this.charts.monthly = this.createChart("#monthlyChart", this.monthlyData, this.monthlyGridData, "월별");
+            this.charts.weekly = this.createChart("#weeklyChart", this.weeklyData, this.weeklyGridData, "요일별");
+            this.charts.daily = this.createChart("#dailyChart", this.dailyData, this.dailyGridData, "일별");
+            this.charts.hourly = this.createChart("#hourlyChart", this.hourlyData, this.hourlyGridData, "시간대별");
+        },
+        
+        createGrids: function() {
+            this.grids.monthly = this.createGrid("#monthlyGrid", this.monthlyData, this.monthlyGridData, () => this.updateChart('monthly'));
+            this.grids.weekly = this.createGrid("#weeklyGrid", this.weeklyData, this.weeklyGridData, () => this.updateChart('weekly'));
+            this.grids.daily = this.createGrid("#dailyGrid", this.dailyData, this.dailyGridData, () => this.updateChart('daily'));
+            this.grids.hourly = this.createGrid("#hourlyGrid", this.hourlyData, this.hourlyGridData, () => this.updateChart('hourly'));
+        },
+        
+        updateChart: function(type) {
+            const chart = this.charts[type];
+            if (!chart) return;
+            
+            let gridData;
+            switch(type) {
+                case 'monthly': gridData = this.monthlyGridData; break;
+                case 'weekly': gridData = this.weeklyGridData; break;
+                case 'daily': gridData = this.dailyGridData; break;
+                case 'hourly': gridData = this.hourlyGridData; break;
+            }
+            
+            if (gridData) {
+                const selectedSeries = gridData.filter(item => item.selected).map(item => ({
+                    valueField: item.name,
+                    name: item.name,
+                    color: item.color
+                }));
+                chart.option("series", selectedSeries);
+            }
+        }
+    };
+    
+    // 초기화 실행
+    window.AIKeywordPage.init();
+})();
+</script>

@@ -1,6 +1,402 @@
 <div class="conts-area-wrap">
-  <div class="conts-area">conts-area1<br><br><br><br>conts-area1<br><br></div>
-  <div class="conts-area">conts-area2</div>
-  <div class="conts-area">conts-area3</div>
-  <div class="conts-area">conts-area4</div>
+  <div class="conts-area h-full">
+     <div class="tit">대시보드</div>
+     <div class="conts-grid dash-donut">
+         <div class="donut-box">
+            <div id="donutChart-4"></div>
+            <div class="center-text" style="display:none">
+                  <span class="label">최초인입</span>
+                  <strong class="value">2,101</strong>
+            </div>
+         </div>
+         <div class="donut-box">
+               <div id="donutChart-5"></div>
+               <div class="center-text" style="display:none">
+                     <span class="label">재인입</span>
+                     <strong class="value">32</strong>
+               </div>
+         </div>
+     </div>
+  </div>
+  <div class="conts-area h-full">
+     <div class="tit">고객 응대 현황</div>
+     <div class="conts-grid customer-status">
+         <div class="customerBar-chart" id="customerBarChart"></div>
+         <div class="data-list-wrap">
+            <ul class="data-list-items">
+               <li class="data-list-item is-total">
+                  <div>총응대</div>
+                  <div>141</div>
+                  <div>63.23%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>콜봇</div><div>20</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>챗봇</div><div>22</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>콜상담</div><div>20</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>채팅상담</div><div>20</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>IVR</div><div>38</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>이메일</div><div>20</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>QnA</div><div>20</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>게시판</div><div>20</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>고객포기</div><div>20</div><div>14.18%</div>
+               </li>
+               <li class="data-list-item">
+                  <div>미처리</div><div>20</div><div>14.18%</div>
+               </li>
+            </ul>
+         </div>
+     </div>
+  </div>
+  <div class="conts-area h-full">
+    <div class="tit">라우팅봇 현황</div>
+     <div class="conts-grid routing-status">
+            <div id="routingReport" class="routing-statuschart">chart area</div>
+            <div class="data-list-wrap card">
+            <ul class="data-list-cards">
+               <li class="data-list-card">
+                  <div class="dataTit">총인입호</div>
+                  <div class="conts">30</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">콜봇응대</div>
+                  <div class="conts">21</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">상담사 전환</div>
+                  <div class="conts">9</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">IVR 전환</div>
+                  <div class="conts">1</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">비정상종료</div>
+                  <div class="conts">0</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">IVR 처리</div>
+                  <div class="conts">21</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">상담사 응대</div>
+                  <div class="conts">7</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">고객포기</div>
+                  <div class="conts">1</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">미처리</div>
+                  <div class="conts">0</div>
+               </li>
+               <li class="data-list-card">
+                  <div class="dataTit">FALLBACK</div>
+                  <div class="conts">21</div>
+               </li>
+            </ul>
+         </div>
+     </div>
+  </div>
+  <div class="conts-area">
+    <div class="tit">서비스 현황</div>
+     <div class="conts-grid">
+      
+     </div>
+  </div>
 </div>
+
+  <script>
+(function() {
+        // 전역 네임스페이스로 충돌 방지
+        if (window.DonutDashboard) {
+            window.DonutDashboard.destroy();
+        }
+        
+        window.DonutDashboard = {
+            charts: {
+                donut4: null,
+                donut5: null,
+                customerBarChart: null  // 바 차트 추가
+            },
+            
+            // 기존 인스턴스 정리
+            destroy: function() {
+                Object.values(this.charts).forEach(chart => {
+                    if (chart && chart.dispose) {
+                        chart.dispose();
+                    }
+                });
+                
+                this.charts = {
+                    donut4: null,
+                    donut5: null,
+                    customerBarChart: null  // 바 차트 추가
+                };
+            },
+            
+            init: function() {
+                this.destroy();
+                
+                setTimeout(() => {
+                    this.setupData();
+                    this.createDonutCharts();
+                    this.createCustomerBarChart();  // 바 차트 생성 추가
+                    this.setupEvents();
+                }, 100);
+            },
+            
+            setupData: function() {
+                // 도넛 차트 데이터
+                this.donut4Data = [
+                    { category: '콜 I/B', value: 850 },
+                    { category: '콜 O/B', value: 420 },
+                    { category: '채팅', value: 380 },
+                    { category: '이메일', value: 280 },
+                    { category: 'QnA', value: 121 },
+                    { category: '게시판', value: 50 }
+                ];
+
+                this.donut5Data = [
+                    { category: '콜 I/B', value: 15 },
+                    { category: '콜 O/B', value: 8 },
+                    { category: '채팅', value: 5 },
+                    { category: '이메일', value: 3 },
+                    { category: 'QnA', value: 1 }
+                ];
+
+                // 바 차트 데이터 추가
+                this.customerBarData = [
+                    { category: '콜봇', value: 20, percent: 14.18 },
+                    { category: '챗봇', value: 22, percent: 15.60 },
+                    { category: '콜상담', value: 20, percent: 14.18 },
+                    { category: '채팅상담', value: 20, percent: 14.18 },
+                    { category: 'IVR', value: 38, percent: 26.95 },
+                    { category: '이메일', value: 20, percent: 14.18 },
+                    { category: 'QnA', value: 20, percent: 14.18 },
+                    { category: '게시판', value: 20, percent: 14.18 },
+                    { category: '고객포기', value: 20, percent: 14.18 },
+                    { category: '미처리', value: 20, percent: 14.18 }
+                ];
+            },
+            
+            // 도넛 차트 생성
+            createDonutChart: function(containerId, data, palette) {
+                const container = $(containerId);
+                if (!container.length) return null;
+                
+                return container.dxPieChart({
+                    dataSource: data,
+                    palette: palette,
+                    series: [{
+                        type: 'doughnut',
+                        argumentField: 'category',
+                        valueField: 'value',
+                        innerRadius: 0.65,
+                        label: {
+                            visible: true,
+                            position: 'inside',
+                            format: {
+                                type: 'fixedPoint',
+                                precision: 0
+                            },
+                            backgroundColor: "none",
+                            font: {
+                                size: 10,
+                                color: 'white',
+                                weight: 'bold'
+                            },
+                            connector: {
+                                visible: false
+                            }
+                        }
+                    }],
+                    legend: {
+                        visible: true,
+                        orientation: 'horizontal',
+                        horizontalAlignment: 'center',
+                        verticalAlignment: 'bottom',
+                        itemsAlignment: 'center',
+                        margin: { top: 15, bottom: 0 },
+                        font: {
+                            size: 11
+                        },
+                        rowItemSpacing: 8,
+                        columnItemSpacing: 16
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                    animation: {
+                        enabled: true,
+                        duration: 800,
+                        easing: 'easeInOutCubic'
+                    },
+                    size: {
+                        width: undefined,
+                        height: undefined
+                    },
+                    margin: {
+                        left: 10,
+                        right: 10,
+                        top: 10,
+                        bottom: 40
+                    },
+                    onDrawn: function(e) {
+                        setTimeout(function() {
+                            const chartInstance = e.component;
+                            const series = chartInstance.getAllSeries()[0];
+                            
+                            if (series) {
+                                const center = series.getVisibleArea();
+                                const centerX = (center.minX + center.maxX) / 2;
+                                const centerY = (center.minY + center.maxY) / 2; 
+                                $(e.element).closest('.donut-box').find('.center-text').css({
+                                    left: centerX + 'px',
+                                    top: centerY + 'px'
+                                });
+                                $(e.element).closest('.donut-box').find('.center-text').show(500);
+                            }
+                        }, 100);
+                    }
+                }).dxPieChart("instance");
+            },
+            
+            createDonutCharts: function() {
+                // 도넛 차트들 생성
+                this.charts.donut4 = this.createDonutChart(
+                    '#donutChart-4', 
+                    this.donut4Data, 
+                    ['#94BBFD', '#FFA7A1', '#62D0E6', '#FFDB67', '#7D9EF6', '#A1D164']
+                );
+                
+                this.charts.donut5 = this.createDonutChart(
+                    '#donutChart-5', 
+                    this.donut5Data, 
+                    ['#94BBFD', '#FFA7A1', '#62D0E6', '#FFDB67', '#7D9EF6']
+                );
+            },
+
+           // 바 차트 생성 메서드 추가
+            createCustomerBarChart: function() {
+                const container = $('.customerBar-chart');
+                if (!container.length) return null;
+                
+                this.charts.customerBarChart = container.dxChart({
+                    dataSource: this.customerBarData,
+                    commonSeriesSettings: {
+                        argumentField: "category",
+                        type: "bar",
+                        barPadding: 0.3,
+                        ignoreEmptyPoints: true
+                    },
+                    series: [{
+                        valueField: "value",
+                        name: "건수",
+                        color: "#73BCFF",
+                        label: {
+                            visible: false,
+                        }
+                    }],
+                    legend: {
+                        visible: false
+                    },
+                    argumentAxis: {
+                        grid: {
+                            visible: false
+                        },
+                        label: {
+                            font: {
+                                size: 11
+                            },
+                            overlappingBehavior: {
+                                mode: "rotate",
+                                rotationAngle: -45
+                            }
+                        }
+                    },
+                    valueAxis: {
+                        grid: {
+                            color: "#f0f0f0",
+                            opacity: 0.7
+                        },
+                        label: {
+                            font: {
+                                size: 10
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        customizeTooltip: function(arg) {
+                            const data = arg.point.data;
+                            return {
+                                text: arg.argumentText + "<br/>" + 
+                                      "건수: " + arg.value + "건<br/>" +
+                                      "비율: " + data.percent + "%"
+                            };
+                        },
+                        font: {
+                            size: 11
+                        }
+                    },
+                    animation: {
+                        enabled: true,
+                        duration: 800,
+                        easing: 'easeInOutCubic'
+                    },
+                    size: {
+                        width: undefined,
+                        height: undefined
+                    },
+                    margin: {
+                        left: 20,
+                        right: 20,
+                        top: 20,
+                        bottom: 60
+                    }
+                }).dxChart("instance");
+            },
+            
+            setupEvents: function() {
+             
+                // 윈도우 리사이즈 시 차트 업데이트
+                let resizeTimeout;
+                $(window).on('resize', function() {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(function() {
+                        // 도넛 차트들 리사이즈
+                        if (window.DonutDashboard.charts.donut4) {
+                            window.DonutDashboard.charts.donut4.render();
+                        }
+                        if (window.DonutDashboard.charts.donut5) {
+                            window.DonutDashboard.charts.donut5.render();
+                        }
+                        // 바 차트 리사이즈
+                        if (window.DonutDashboard.charts.customerBarChart) {
+                            window.DonutDashboard.charts.customerBarChart.render();
+                        }
+                    }, 300);
+                });
+            }
+        };
+        
+        // 초기화 실행
+        window.DonutDashboard.init();
+    })();
+    </script>

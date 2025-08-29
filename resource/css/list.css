@@ -1,0 +1,25 @@
+.data-list-items{width:100%; border-top:1px solid var(--color-border-gray2); border-bottom:1px solid var(--color-border-gray2)}
+.data-list-item{display:grid; grid-template-columns: 1fr 1fr 1fr; align-items:center; padding:8px 0; font-weight:400; text-align: center; background-color:var(--color-bg-white);}
+.data-list-items>.data-list-item:nth-child(even){background-color: #f9f9f9;}
+.data-list-cards{display:flex; align-items:center; flex-wrap: wrap; gap:20px; }
+.data-list-card{width:calc((100%/5) - 16px); text-align: center;}
+.data-list-card .dataTit{padding:8px 0; font-weight:500; color:#4D5874; background:#E7ECF5; border-radius:6px;}
+.data-list-card .conts{display:flex; justify-content:center; align-items: center; height:90px; color:var(--color-text-gray); font-weight:600; font-size:22px;}
+.data-list-cards.col-4{padding:0 20px;}
+.data-list-cards.col-4 .data-list-card{width:calc((100%/4) - 15px);}
+
+.data-list-wrap.card .data-list-cards{height: 100%;display: grid;grid-template-columns: repeat(5, 1fr); gap:10px;  flex: 1;grid-auto-rows: 1fr; }
+.data-list-wrap.card .data-list-card{display: flex;flex-direction: column;width: 100%;height: 100%;}
+.data-list-wrap.card .data-list-card .dataTit{text-align: center;display: flex;align-items: center;text-align: center; justify-content: center;word-break: break-all;padding:8px 0; font-weight:500; color:#4D5874; background:#E7ECF5; border-radius:6px;}
+.data-list-wrap.card .data-list-card .conts{height: auto; flex: 1;display: flex;align-items: center;justify-content: center;color:var(--color-text-gray); font-weight:600; font-size:22px;}
+.data-list-wrap.card .data-list-cards.col-4{display: grid;grid-template-columns: repeat(4, 1fr);}
+
+
+/* 20250828 */
+.data-list-card.message{width:100%; height:100%;}
+.data-list-card.message .conts{display:block; width:100%; font-size:13px; font-weight:400; }
+.data-list-card.message .conts.msg-box{height:calc(100% - 35px); margin-top:6px; padding:20px 22px; background-color: #FAFAFA; border-radius:6px; border:1px solid var(--color-border-gray1); overflow-y:auto;}
+.data-list-cards.rows{display:grid; height:calc(100% - 35px); grid-template-rows: 1fr 2fr;}
+.data-list-cards.rows .data-list-card{width:100%; height:100%;}
+.data-list-card.contText .conts{display:block; width:100%; height:100%; margin-top:6px; padding:15px; text-align:left; font-size:13px; line-height:1.2; font-weight:400; border:1px solid var(--color-border-gray1);}
+

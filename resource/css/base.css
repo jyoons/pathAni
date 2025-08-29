@@ -50,6 +50,7 @@ textarea:active,
 :root {
 --font-family:'Pretendard', sans-serif;
 --color-text-gray: #444;
+--color-text-gray1: #333;
 --color-text-white: #fff;
 --color-text-primary: #097FE8;
 --color-border-gray1 : #EBEBEB; 
@@ -72,6 +73,11 @@ textarea:active,
 
 .btn{height:24px; font-size:12px; font-weight:600; line-height:24px; padding:0 8px; border-radius:2px;}
 .btn.primary{color:var(--color-text-white); background:var(--color-btn-primary);} 
+.grid-msgBtn{position:relative; width:28px; height:28px; border-radius:50%; background:#F1F6FF; font-size:0;}
+.grid-msgBtn:after{content:''; position:absolute; top:calc(50% - 6px); left:calc(50% - 6px); width:12px; height:12px; background: url('/resource/images/ico-message.svg') center center no-repeat; background-size:cover;}
+.grid-msgBtn.active{background:#097FEB;}
+.grid-msgBtn.active:after{filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(212deg) brightness(104%) contrast(101%);}
+.word-keeppAll{word-break:keep-all !important;}
 /* .ellipsis{text-overflow: ellipsis; white-space: nowrap; word-break: break-all; overflow: hidden;}
 .flex-align-top{align-items: flex-start !important;} */
 

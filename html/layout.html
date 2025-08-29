@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <base href="/pathAni/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="../resource/css/common.css">
-  <script src="../resource/js/jquery-3.7.1.min.js"></script>
-  <script src="../resource/js/ui-common.js"></script>
-  <!-- <script src="/resource/js/jquery-ui.min.js"></script> -->
-  <link rel="stylesheet" type="text/css" href = "../resource/devEx/css/dx.light.css"/>   
-  <script type="text/javascript" src="../resource/devEx/js/dx.all.js"></script>
-  <script type="text/javascript" src="../html/pages/pub-only.js"></script><!-- 퍼블 확인용 -->
+  <link rel="stylesheet" type="text/css" href="/resource/css/common.css">
+  <script src="/resource/js/jquery-3.7.1.min.js"></script>
+  <script src="/resource/js/ui-common.js"></script>
+  <link rel="stylesheet" type="text/css" href = "/resource/devEx/css/dx.light.css"/>   
+  <script type="text/javascript" src="/resource/devEx/js/dx.all.js"></script>
+  <script type="text/javascript" src="/resource/js/plugins/jquery.awesomeCloud-0.2.js"></script>
+  <script type="text/javascript" src="/html/pages/pub-only.js"></script><!-- 퍼블 확인용 -->
 </head>
 <body>
   <div class="wrapper">
     <!-- header -->
     <header class="header">
       <div class="header-wrap">
-        <div class="logo"><img src="../resource/images/logo.png" alt="라우팅봇"></div>
+        <div class="logo"><img src="/resource/images/logo.png" alt="라우팅봇"></div>
       </div>
     </header>
     <!--// header -->
     <div class="container">
       <nav class="nav">
-        <ul class="navList">
+        <ul class="navList"> 
           <li class="active">
             <a href="javascript:void(0);" class="nav-dep1"><i class="im-dashboard">대시보드</i></a>
             <div class="nav-dep2-list">
               <div class="tit">대시보드</div>
               <ul>
-                <li data-nav-title="통합대시보드" data-nav-url="pages/page-dashboard.html"><a href="javascript:void(0);" class="nav-dep2"><span>통합 대시보드</span></a></li>
-                <li data-nav-title="라우팅봇 대시보드" data-nav-url="pages/page-botDashboard.html"><a href="javascript:void(0);" class="nav-dep2"><span>라우팅봇 대시보드</span></a></li>
+                <li data-nav-title="통합대시보드" data-nav-url="/html/pages/page-dashboard.html"><a href="javascript:void(0);" class="nav-dep2"><span>통합 대시보드</span></a></li>
+                <li data-nav-title="라우팅봇 대시보드" data-nav-url="/html/pages/page-botDashboard.html"><a href="javascript:void(0);" class="nav-dep2"><span>라우팅봇 대시보드</span></a></li>
               </ul>
             </div>
           </li> 
@@ -39,10 +40,10 @@
             <div class="nav-dep2-list">
               <div class="tit">대시보드</div>
               <ul>
-                <li data-nav-title="라우팅봇 서비스현황"><a href="javascript:void(0);" class="nav-dep2" ><span>라우팅봇 서비스현황</span></a></li>
-                <li data-nav-title="AI키워드 실적"><a href="javascript:void(0);" class="nav-dep2"><span>AI키워드 실적</span></a></li>
-                <li data-nav-title="대화흐름"><a href="javascript:void(0);" class="nav-dep2"><span>대화흐름</span></a></li>
-                <li data-nav-title="미지원 고객 발화 로그"><a href="javascript:void(0);" class="nav-dep2"><span>미지원 고객 발화 로그</span></a></li>
+                <li data-nav-title="라우팅봇 서비스현황" data-nav-url="/html/pages/page-RoutingBot.html"><a href="javascript:void(0);" class="nav-dep2" ><span>라우팅봇 서비스현황</span></a></li>
+                <li data-nav-title="AI키워드 실적"  data-nav-url="/html/pages/page-Aikeyword.html"><a href="javascript:void(0);" class="nav-dep2"><span>AI키워드 실적</span></a></li>
+                <li data-nav-title="대화흐름" data-nav-url="/html/pages/page-conversationFlow.html"><a href="javascript:void(0);" class="nav-dep2"><span>대화흐름</span></a></li>
+                <li data-nav-title="미지원 고객 발화 로그" data-nav-url="/html/pages/page-customIgnitionLog.html"><a href="javascript:void(0);" class="nav-dep2"><span>미지원 고객 발화 로그</span></a></li>
               </ul>
             </div>
           </li>
@@ -51,7 +52,7 @@
       <div class="contents">
         <div class="tab-nav">
           <ul class="tab-nav-list">
-            <li data-key="통합대시보드"><a href="javascript:void(0);" class="tab-nav-link" data-url="pages/page-dashboard.html" data-title="통합대시보드">통합대시보드</a></li>
+            <li data-key="통합대시보드"><a href="javascript:void(0);" class="tab-nav-link" data-url="/html/pages/page-dashboard.html" data-title="통합대시보드">통합대시보드</a></li>
           </ul>
         </div>
         <div class="contents-wrap"></div>
@@ -89,7 +90,7 @@
             $contents.html('<div style="padding:1rem;color:red">불러오기 실패: ' + xhr.status + '</div>');
           }
           //퍼블 확인용
-          if(url.indexOf('botDashboard') > 0){
+          if(url.indexOf('botDashboard') > 0 || url.indexOf('conversationFlow') > 0 || url.indexOf('Aikeyword') > 0 || url.indexOf('RoutingBot') > 0 || url.indexOf('customIgnitionLog') > 0){
             PUB_ONLY.devExpressCalendar();
           }
         });
@@ -99,7 +100,7 @@
     },
     _ensureTab: function(title, opts){
       opts = opts || {}; 
-      var $tabList = this.$tabList;
+      var $tabList = this.$tabList; 
       var key = opts.key || this._toKey(title);
       var exists = $tabList.find('li[data-key="' + key + '"]').length > 0;
       if (exists){
@@ -174,10 +175,6 @@
     }
   };
   tabNavs.init();
-// 확인용
-
-// 퍼블 확인용
-$('li[data-nav-title="라우팅봇 대시보드"]').addClass('active').find('a').trigger('click');
 </script>
 </body>
 </html>

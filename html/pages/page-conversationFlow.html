@@ -1,0 +1,259 @@
+<div class="conts-area-wrap full period">
+  <div class="conts-area">
+     <div class="periodSet-area">
+        <div class="periodSet-datepicker">
+          <div id="from-selected-date"></div>
+          <div class="term">~</div>
+          <div id="to-selected-date"></div>
+        </div>
+        <div class="periodSet-btns">
+          <button type="button" data-search-flag="D">오늘</button>
+          <button type="button" data-search-flag="Y">어제</button>
+          <button type="button" data-search-flag="W">일주일</button>
+          <button type="button" data-search-flag="M">30일</button>
+           <button type="button">당월</button>
+        </div>
+        <button type="button" class="btn primary">조회</button>
+      </div>
+  </div>
+</div>
+<div class="conts-area-wrap full">
+  <div class="conts-area">
+    <div class="tit">대화흐름</div>
+    <div class="conversation-flow-wrap">
+      <!-- grid table -->
+      <div class="conversation-flow-grid">
+        <div class="dx-grid-custom paging" id="gridTable"></div>  
+      </div>
+      <!--// grid table -->
+      <!-- 대화 내용 -->
+      <div class="message-conts-wrap" style="display:none;">
+        <!-- 대화 message -->
+        <div class="data-list-card message">
+          <div class="dataTit">대화흐름</div>
+          <div class="conts msg-box">
+            <div class="msg-area bot">
+              <div class="msg-inner">
+                <div class="msg">
+                  안녕하세요. OOOOAI 상담사입니다.<br>문의 하시고자 하는 내용을 말씀해 주세요.
+                </div> 
+                <div class="date">오후 16:14</div>
+              </div>
+            </div>
+            <div class="msg-area customer" data-customer="이">
+              <div class="msg-inner">
+                <div class="name">이민호</div>
+                <div class="msg">
+                  넥서스 상품들중에 23453 품번이 품절되었나요?
+                </div>
+                <div class="date">오후 16:14</div>
+              </div>
+            </div>
+            <div class="msg-area bot">
+              <div class="msg-inner">
+                <div class="msg">
+                  네, 고객님, 넥서스 상품 23453번 말씀이신가요?
+                </div> 
+                <div class="msg">
+                  현재 이벤트 상품으로 신청 후 추첨을 통해 구매 가능하신 상품입니다.
+                </div> 
+                <div class="msg">
+                  신청 페이지 url을 문자로 보내드릴까요?
+                </div>
+                <div class="date">오후 16:17</div>
+              </div>
+            </div>
+            <div class="msg-area customer" data-customer="이">
+              <div class="msg-inner">
+                <div class="name">이민호</div>
+                <div class="msg">
+                  네, 보내주세요.
+                </div>
+                <div class="date">오후 16:14</div>
+              </div>
+            </div>   
+            <div class="msg-area bot">
+              <div class="msg-inner">
+                <div class="msg">
+                  신청 페이지 url을 문자로 보내드렸습니다.
+                </div> 
+                <div class="msg">
+                  더 궁금하신 내용이 있으실까요?
+                </div> 
+                <div class="date">오후 16:23</div>
+              </div>
+            </div>
+            <div class="msg-area customer" data-customer="이">
+              <div class="msg-inner">
+                <div class="name">이민호</div>
+                <div class="msg">
+                  아니요, 없습니다.
+                </div>
+                <div class="date">오후 16:25</div>
+              </div>
+            </div> 
+            <div class="msg-area bot">
+              <div class="msg-inner">
+                <div class="msg">
+                  네, 감사합니다.<br>지금까지 OOOOAI 상담사였습니다.
+                </div>  
+                <div class="date">오후 16:27</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 대화 message -->
+        <!-- 대화 키워드 / 요약 -->
+        <div class="message-keyword-wrap">
+          <div class="data-list-cards rows">
+            <div class="data-list-card contText">
+              <div class="dataTit">주요 키워드</div>
+              <div class="conts">넥서스 상품, 이벤트, 추첨</div>
+            </div>
+             <div class="data-list-card contText">
+              <div class="dataTit">상담요약</div>
+              <div class="conts">상담 내용에 대한 요약입니다.상담 내용에 대한 요약입니다.상담 내용에 대한 요약입니다.</div>
+            </div>
+          </div>
+        </div>
+        <!-- 대화 키워드 / 요약 -->
+      </div>
+      <!--// 대화 내용 -->
+    </div>
+  </div>
+<script>
+(function () {
+  let activeRowId = null;
+  if (window.conversationFlow) {
+    window.conversationFlow.destroy();
+  }
+  window.conversationFlow = {
+    grids: { call: null },
+    data: [],
+    destroy() {
+      Object.values(this.grids).forEach(g => g?.dispose?.());
+      this.grids = { call: null };
+    },
+    init() {
+      this.destroy();
+      setTimeout(() => {
+        this.setupData();
+        this.createGrid();
+      }, 100);
+    },
+
+    setupData() {
+      this.data = [
+        {id: 1, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 2, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 3, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 4, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 5, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 6, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 7, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 8, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 9, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 10, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 11, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 12, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 13, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 14, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 15, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 16, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 17, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 18, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 19, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 20, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]},
+        {id: 21, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","AL키워드3","재요청","알림톡전송","상담종료"], keywords: ["이벤트상품","2345번","문자안내"]},
+        {id: 22, customerPhone: "01012345678", start: "2025-08-08 09:11:12", end: "2025-08-08 09:11:12", duration: "00:11:12", topics: ["인사말","AI키워드1","재요청","AL키워드2","재요청","알림톡전송","상담종료"], keywords: ["아동학대","234번","음성녹취"]}
+    ]},
+
+    createGrid() {
+      this.grids.call = $("#gridTable").dxDataGrid({
+        dataSource: this.data,
+        keyExpr: "id",
+        showBorders: true,
+        // rowAlternationEnabled: true,
+        columnAutoWidth: true,
+        wordWrapEnabled: true,
+        hoverStateEnabled:false,
+        paging: { pageSize: 20 },
+        pager: { 
+          showInfo:false, 
+          showPageSizeSelector: true, 
+          allowedPageSizes: [20, 30, 40, 50, 60], 
+          visible: true
+        },
+        scrolling: { mode: "standard", showScrollbar:"always"},
+        columns: [
+          { caption: "고객전화번호", 
+            dataField: "customerPhone", 
+            width: 110, 
+            alignment: "center" 
+          },
+          { caption: "시작일시", 
+            dataField: "start", 
+            minWidth: 110,
+            alignment: "center" 
+          },
+          { caption: "종료일시", 
+            dataField: "end", 
+            minWidth: 110,
+            alignment: "center"
+          },
+          { caption: "통화시간",
+            dataField: "duration", 
+            width: 80, 
+            alignment: "center" 
+          },
+          { caption: "대화흐름", 
+            dataField: "topics", 
+            minWidth: 260,
+            cellTemplate: (container, { value = [] }) => {
+              const wrap = $("<div>").addClass("girdTags");
+              value.forEach(t => $("<span>").addClass("tag").text(t).appendTo(wrap));
+              wrap.appendTo(container);
+            }
+          },
+          { caption: "핵심 키워드",
+            dataField: "keywords",
+            minWidth: 130,
+            alignment: "center",
+            cellTemplate: (container, { value = [] }) => {
+              const wrap = $("<div>").addClass("word-keeppAll");
+                value.forEach((t, i) => {
+                $("<span>")
+                  .text(t + (i < value.length - 1 ? ", " : "")) // 키워드 사이에 , 넣어 주기
+                  .appendTo(wrap);
+              });
+              wrap.appendTo(container);
+            }
+          },
+          { caption: "대화내용", 
+            width:80, 
+            alignment: "center", 
+            allowSorting: false, 
+            allowFiltering: false,
+            cellTemplate: function(container, info){
+              const isActive = info.data.id === activeRowId;
+              const btn = $("<button>", {
+                text: "대화보기",
+                class: isActive ? "grid-msgBtn active" : "grid-msgBtn",
+                click: function() {
+                  activeRowId = info.data.id; 
+                  $(".message-conts-wrap").show(); // message창 노출
+                  $("#gridTable").dxDataGrid("instance").refresh(); // grid table 재호출
+                }
+              });
+              $(container).append(btn);
+            }
+          }
+        ]
+      }).dxDataGrid("instance");
+    }
+  };
+
+  window.conversationFlow.init();
+})();
+
+</script>
