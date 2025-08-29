@@ -8,7 +8,7 @@
 .periodSet-btns button{display:block; padding:4px 9px; font-weight:500; font-size:12px; border:1px solid #c1c1c1; background:#FFF; border-radius:3px;}
 .periodSet-btns button.active{background:#f6f6f6;}
 .periodSet-datepicker .dx-datebox-date .dx-dropdowneditor-icon::before{display:none;}
-.periodSet-datepicker .dx-datebox-date .dx-dropdowneditor-icon{background:url('resource/images/ico-calendar.svg') center center no-repeat; background-size: 12px;}
+.periodSet-datepicker .dx-datebox-date .dx-dropdowneditor-icon{background:url('../images/ico-calendar.svg') center center no-repeat; background-size: 12px;}
 .periodSet-datepicker .dx-texteditor-input{padding:0 0 0 10px;}
 .periodSet-datepicker .dx-texteditor.dx-editor-outlined{height:30px;}
 .periodSet-datepicker .dx-texteditor-input-container{align-items:center;}

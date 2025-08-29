@@ -22,4 +22,3 @@
 .data-list-cards.rows{display:grid; height:calc(100% - 35px); grid-template-rows: 1fr 2fr;}
 .data-list-cards.rows .data-list-card{width:100%; height:100%;}
 .data-list-card.contText .conts{display:block; width:100%; height:100%; margin-top:6px; padding:15px; text-align:left; font-size:13px; line-height:1.2; font-weight:400; border:1px solid var(--color-border-gray1);}
-

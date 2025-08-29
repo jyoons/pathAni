@@ -82,8 +82,8 @@
 .girdTags .tag{position:relative; display:block; padding:2px 8px; background:#FAFAFA; border:1px solid #E2E2E2; border-radius:14px;}
 .girdTags .tag + .tag{margin-right:16px;}
 .girdTags .tag:first-child + .tag{margin-left:16px;}
-.girdTags .tag:first-child + .tag:before{content:''; position:absolute; left:-12px; top:50%; transform: translateY(-50%); width:6px; height:10px; background:url('resource/images/ico-arrow-right.svg') 0 0 no-repeat; background-size:6px 10px;}
-.girdTags .tag + .tag:after{content:''; position:absolute; right:-12px; top:50%; transform: translateY(-50%); width:6px; height:10px; background:url('resource/images/ico-arrow-right.svg') 0 0 no-repeat; background-size:6px 10px;}
+.girdTags .tag:first-child + .tag:before{content:''; position:absolute; left:-12px; top:50%; transform: translateY(-50%); width:6px; height:10px; background:url('../images/ico-arrow-right.svg') 0 0 no-repeat; background-size:6px 10px;}
+.girdTags .tag + .tag:after{content:''; position:absolute; right:-12px; top:50%; transform: translateY(-50%); width:6px; height:10px; background:url('../images/ico-arrow-right.svg') 0 0 no-repeat; background-size:6px 10px;}
 .girdTags .tag:last-child:after{display:none;}
 .conversation-flow-wrap .message-conts-wrap{width:40%; flex:0 0 40%; height:100%; margin-left:20px;}
 .message-conts-wrap{display:flex; }
