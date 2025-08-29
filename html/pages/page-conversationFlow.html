@@ -84,7 +84,7 @@
               </div>
             </div>
             <div class="msg-area customer" data-customer="이">
-              <div class="msg-inner">
+              <div class="msg-inner"> 
                 <div class="name">이민호</div>
                 <div class="msg">
                   아니요, 없습니다.
@@ -182,8 +182,17 @@
           showInfo:false, 
           showPageSizeSelector: true, 
           allowedPageSizes: [20, 30, 40, 50, 60], 
-          visible: true
+          visible:false
         },
+        onContentReady: function(e) {// 20개 이상일 경우 노출
+          const grid = e.component;
+          const pageCount = grid.pageCount();
+          if (pageCount > 1) {
+            grid.option("pager.visible", true); 
+          } else {
+            grid.option("pager.visible", false); 
+          }
+        },        
         scrolling: { mode: "standard", showScrollbar:"always"},
         columns: [
           { caption: "고객전화번호", 

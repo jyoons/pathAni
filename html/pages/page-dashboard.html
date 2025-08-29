@@ -4,14 +4,14 @@
      <div class="conts-grid dash-donut">
          <div class="donut-box">
             <div id="donutChart-4"></div>
-            <div class="center-text" style="display:none">
+            <div class="center-text">
                   <span class="label">최초인입</span>
                   <strong class="value">2,101</strong>
             </div>
          </div>
          <div class="donut-box">
                <div id="donutChart-5"></div>
-               <div class="center-text" style="display:none">
+               <div class="center-text">
                      <span class="label">재인입</span>
                      <strong class="value">32</strong>
                </div>
@@ -23,8 +23,8 @@
      <div class="conts-grid customer-status">
          <div class="customerBar-chart" id="customerBarChart"></div>
          <div class="data-list-wrap">
-            <ul class="data-list-items">
-               <li class="data-list-item is-total">
+            <ul class="data-list-items is-total">
+               <li class="data-list-item">
                   <div>총응대</div>
                   <div>141</div>
                   <div>63.23%</div>
@@ -115,13 +115,89 @@
   </div>
   <div class="conts-area">
     <div class="tit">서비스 현황</div>
-     <div class="conts-grid">
-      
+     <div class="conts-grid table-service">
+        <table class="routing-table">
+            <thead>
+                <tr>
+                    <th colspan="2">FCR</th>
+                    <th colspan="2">재인입률</th>
+                    <th colspan="2">서비스레벨</th>
+                    <th colspan="2">평균응답속도</th>
+                    <th colspan="2">포기율</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr>
+                    <td colspan="2">87.80%</td>
+                    <td colspan="2">87.80%</td>
+                    <td colspan="2" rowspan="3">87.80%</td>
+                    <td colspan="2">15초</td>
+                    <td colspan="2">87.80%</td>
+                </tr>
+                <tr>
+                    <td class="accent-wrap">AI</td>
+                    <td class="accent-wrap">상담사</td>
+                    <td class="accent-wrap">AI</td>
+                    <td class="accent-wrap">상담사</td>
+                    <td class="accent-wrap">I/B</td>
+                    <td class="accent-wrap">O/B</td>
+                    <td class="accent-wrap">I/B</td>
+                    <td class="accent-wrap no-border-right">O/B</td>
+                </tr>
+                 <tr>
+                    <td>70.0%</td>
+                    <td>30.0%</td>
+                    <td>70.0%</td>
+                    <td>30.0%</td>
+                    <td>20초</td>
+                    <td>13초</td>
+                    <td>20초</td>
+                    <td class="no-border-right">13초</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="routing-table">
+            <thead>
+                <tr>
+                    <th colspan="2">응대율</th>
+                    <th colspan="2">평균 처리 시간(AHT)</th>
+                    <th colspan="2">평균 후처리 시간(ACW)</th>
+                    <th colspan="2">시간당 통화 (CPH)</th>
+                    <th colspan="2">상담 점유율</th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr>
+                    <td class="accent-wrap">AI</td>
+                    <td class="accent-wrap">상담사</td>
+                    <td class="accent-wrap">AI</td>
+                    <td class="accent-wrap">상담사</td>
+                    <td colspan="2">30.0%</td>
+                    <td class="accent-wrap">AI</td>
+                    <td class="accent-wrap">상담사</td>
+                    <td colspan="2" rowspan="3">30.0%</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">70.0%</td>
+                    <td rowspan="2">30.0%</td>
+                    <td rowspan="2">00:10:22</td>
+                    <td rowspan="2">00:10:22</td>
+                    <td class="accent-wrap">I/B</td>
+                    <td class="accent-wrap">O/B</td>
+                    <td rowspan="2">20</td>
+                    <td rowspan="2">13</td>
+                </tr>
+                <tr>
+                    <td>20초</td>
+                    <td>13초</td>
+                </tr>
+            </tbody>
+        </table>
      </div>
   </div>
 </div>
 
-  <script>
+<script>
 (function() {
         // 전역 네임스페이스로 충돌 방지
         if (window.DonutDashboard) {
@@ -132,7 +208,8 @@
             charts: {
                 donut4: null,
                 donut5: null,
-                customerBarChart: null  // 바 차트 추가
+                customerBarChart: null,
+                routingChart: null  // 라우팅 차트 추가
             },
             
             // 기존 인스턴스 정리
@@ -146,7 +223,8 @@
                 this.charts = {
                     donut4: null,
                     donut5: null,
-                    customerBarChart: null  // 바 차트 추가
+                    customerBarChart: null,
+                    routingChart: null  // 라우팅 차트 추가
                 };
             },
             
@@ -156,7 +234,8 @@
                 setTimeout(() => {
                     this.setupData();
                     this.createDonutCharts();
-                    this.createCustomerBarChart();  // 바 차트 생성 추가
+                    this.createCustomerBarChart();
+                    this.createRoutingChart();  // 라우팅 차트 생성 추가
                     this.setupEvents();
                 }, 100);
             },
@@ -180,7 +259,7 @@
                     { category: 'QnA', value: 1 }
                 ];
 
-                // 바 차트 데이터 추가
+                // 바 차트 데이터
                 this.customerBarData = [
                     { category: '콜봇', value: 20, percent: 14.18 },
                     { category: '챗봇', value: 22, percent: 15.60 },
@@ -192,6 +271,11 @@
                     { category: '게시판', value: 20, percent: 14.18 },
                     { category: '고객포기', value: 20, percent: 14.18 },
                     { category: '미처리', value: 20, percent: 14.18 }
+                ];
+
+                // 라우팅 차트 데이터 추가 (HTML에서 가져온 실제 데이터)
+                this.routingData = [
+                    { category: 'Auto', success: 21, fail: 9, total: 30 }
                 ];
             },
             
@@ -215,9 +299,9 @@
                                 type: 'fixedPoint',
                                 precision: 0
                             },
-                            backgroundColor: "none",
+                            backgroundColor: "none", 
                             font: {
-                                size: 10,
+                                size: 13,
                                 color: 'white',
                                 weight: 'bold'
                             },
@@ -265,12 +349,12 @@
                             if (series) {
                                 const center = series.getVisibleArea();
                                 const centerX = (center.minX + center.maxX) / 2;
-                                const centerY = (center.minY + center.maxY) / 2; 
+                                const centerY = (center.minY + center.maxY) / 2;
+                                
                                 $(e.element).closest('.donut-box').find('.center-text').css({
                                     left: centerX + 'px',
                                     top: centerY + 'px'
                                 });
-                                $(e.element).closest('.donut-box').find('.center-text').show(500);
                             }
                         }, 100);
                     }
@@ -292,7 +376,7 @@
                 );
             },
 
-           // 바 차트 생성 메서드 추가
+            // 바 차트 생성
             createCustomerBarChart: function() {
                 const container = $('.customerBar-chart');
                 if (!container.length) return null;
@@ -372,25 +456,142 @@
                     }
                 }).dxChart("instance");
             },
+
+            // 라우팅 차트 생성 메서드 추가
+            createRoutingChart: function() {
+                const container = $('#routingReport');
+                if (!container.length) return null;
+                
+                // 성공률과 실패율 계산
+                const processedData = this.routingData.map(item => {
+                    const successRate = (item.success / item.total) * 100;
+                    const failRate = (item.fail / item.total) * 100;
+                    return {
+                        category: item.category,
+                        success: successRate,
+                        fail: failRate,
+                        successCount: item.success,
+                        failCount: item.fail,
+                        total: item.total
+                    };
+                });
+                
+                this.charts.routingChart = container.dxChart({
+                    dataSource: processedData,
+                    rotated: true,  // 가로형 차트로 변경
+                    commonSeriesSettings: {
+                        argumentField: "category",
+                        type: "stackedBar",
+                        barPadding: 0.3,
+                        ignoreEmptyPoints: true
+                    },
+                    series: [{
+                        valueField: "success",
+                        name: "상담중",
+                        color: "#5B9BD5",
+                        stack: "routing",
+                        label: {
+                            visible: false,
+                        }
+                    }, {
+                        valueField: "fail",
+                        name: "대기중", 
+                        color: "#FF7F7F",
+                        stack: "routing",
+                        label: {
+                            visible: false,
+                        }
+                    }],
+                    legend: {
+                        visible: true,
+                        position: "outside",
+                        horizontalAlignment: "right",
+                        verticalAlignment: "top",
+                        font: {
+                            size: 12
+                        }
+                    },
+                    argumentAxis: {
+                        grid: {
+                            visible: false
+                        },
+                        label: {
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        tick: {
+                            visible: false
+                        }
+                    },
+                    valueAxis: {
+                        grid: {
+                            color: "#E0E0E0",
+                            opacity: 0.8
+                        },
+                        label: {
+                            font: {
+                                size: 10
+                            },
+                            format: {
+                                type: "percent",
+                                precision: 0
+                            }
+                        },
+                        max: 100,
+                        tick: {
+                            visible: false
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        customizeTooltip: function(arg) {
+                            const data = arg.point.data;
+                            if (arg.seriesName === '상담중') {
+                                return {
+                                    text: `상담중: ${data.successCount}건 (${arg.value.toFixed(1)}%)`
+                                };
+                            } else {
+                                return {
+                                    text: `대기중: ${data.failCount}건 (${arg.value.toFixed(1)}%)`
+                                };
+                            }
+                        },
+                        font: {
+                            size: 11
+                        }
+                    },
+                    animation: {
+                        enabled: true,
+                        duration: 1000,
+                        easing: 'easeInOutCubic'
+                    },
+                    size: {
+                        width: undefined,
+                        height: 150
+                    },
+                    margin: {
+                        left: 60,
+                        right: 20,
+                        top: 20,
+                        bottom: 20
+                    }
+                }).dxChart("instance");
+            },
             
             setupEvents: function() {
-             
                 // 윈도우 리사이즈 시 차트 업데이트
                 let resizeTimeout;
                 $(window).on('resize', function() {
                     clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(function() {
-                        // 도넛 차트들 리사이즈
-                        if (window.DonutDashboard.charts.donut4) {
-                            window.DonutDashboard.charts.donut4.render();
-                        }
-                        if (window.DonutDashboard.charts.donut5) {
-                            window.DonutDashboard.charts.donut5.render();
-                        }
-                        // 바 차트 리사이즈
-                        if (window.DonutDashboard.charts.customerBarChart) {
-                            window.DonutDashboard.charts.customerBarChart.render();
-                        }
+                        // 모든 차트 리사이즈
+                        Object.values(window.DonutDashboard.charts).forEach(chart => {
+                            if (chart && chart.render) {
+                                chart.render();
+                            }
+                        });
                     }, 300);
                 });
             }
@@ -399,4 +600,4 @@
         // 초기화 실행
         window.DonutDashboard.init();
     })();
-    </script>
+</script>

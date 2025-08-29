@@ -21,7 +21,6 @@
 .conts-area.h-full{display: flex; flex-direction: column;min-height:0;min-width: 0;}
 .conts-area.h-full .tit{ flex:0 0 auto; margin-bottom:10px; }
 
-
 /*도넛 공통*/
 .donut-box{position: relative;}
 .donut-box .center-text {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);text-align: center;pointer-events: none; z-index: 10;}
@@ -37,6 +36,30 @@
 .dev-custom-tab .dx-item.dx-tab.dx-tab-selected .dx-tab-text-span{color: #097FE8;}
 .dev-custom-tab .dx-tabs-wrapper::after{border:none;}
 .dev-custom-tab .dx-tab.dx-tab-selected::after{border:none;}
+.dev-custom-tab .dx-item.dx-tab.dx-state-hover:after,
+.dev-custom-tab .dx-tab.dx-state-focused:after{display:none;}
+
+/*table 공통*/
+.routing-table{line-height: 1.3;}
+.routing-table thead th{background: #E7ECF5;color: #4D5874;font-weight: 500;padding: 7px 0;}
+.routing-table thead th:first-child{border-radius: 6px 0 0 6px;}
+.routing-table thead th:last-child{border-radius: 0 6px 6px;}
+.routing-table tbody td{border-right: 1px solid #EBEBEB;border-bottom: 1px solid #EBEBEB;padding: 7px 0;text-align: center;vertical-align: middle;}
+.routing-table tbody td.accent-wrap {background: #F8F7F7;}
+.routing-table td[colspan]:last-child {border-right: none !important;}
+.no-border-right {border-right: none !important;}
+
+/*대시보드*/
+.conts-grid.dash-donut{justify-content: center; gap: 50px; flex:1 1 auto; min-height:0; min-width:0;max-width:100%;box-sizing:border-box;}
+.conts-grid.dash-donut .donut-box{ flex: 1 1 35%; min-width:0; min-height:0; max-width: 300px; height:100%; aspect-ratio: 1 / 1; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; box-sizing:border-box;}
+.conts-grid.dash-donut .donut-box>.dx-visibility-change-handler{  width:100%;height:100%;min-width:0; min-height:0; box-sizing:border-box;}
+.conts-grid.customer-status{display:flex; gap:12px; align-items:stretch; min-height:0; min-width:0;}
+.conts-grid.customer-status .customerBar-chart{flex:7 1 0%;height:100%; width:100%; min-height:0; min-width:0;}
+.conts-grid.customer-status .data-list-wrap{ flex:3 1 0%;min-height:0; min-width:0; overflow:auto;}
+.conts-grid.routing-status{flex-direction:column; align-items: unset; gap:12px;flex:1 1 auto;min-height:0;} 
+.conts-grid.routing-status .routing-statuschart{flex: 5 1 0%;min-height:0;}
+.conts-grid.routing-status .data-list-wrap.card{ flex: 5 1 0%;min-height:0;overflow:auto;}
+.conts-grid.table-service{flex-direction:column;align-items: unset;justify-content: center;height: 100%;gap:40px;}
 
 /*대시보드*/
 .conts-grid.dash-donut{justify-content: center; gap: 50px; flex:1 1 auto; min-height:0; min-width:0;max-width:100%;box-sizing:border-box;}
@@ -59,7 +82,6 @@
 .conts-grid.routing-bot .routing-barchart{flex: 7 1 0%;min-height:0;}
 .conts-grid.routing-bot .data-list-wrap.card{ flex: 3 1 0%;min-height:0;overflow:auto;}
 
-
 /*라우팅봇*/
 .conts-area-wrap.full .conts-area.h-full{height: 100%; display: flex; flex-direction: column;}
 .routing-wrap{height: 100%; display: flex; gap:15px;overflow: hidden; min-height: 0;}
@@ -70,7 +92,6 @@
 .conts-area-grid .dx-line-custom{width: 100%;height: 100%;}
 .conts-area-grid .dx-grid-custom {width: 100%;height: 100%;}
 .donut-box-wrap{flex:1; display: flex; justify-content: center; align-items: center;}
-
 
 /* 대화흐름 */
 .conts-area .tit + .conversation-flow-wrap{padding-top:8px;}

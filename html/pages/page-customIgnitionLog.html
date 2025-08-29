@@ -78,7 +78,16 @@
           showInfo:false, 
           showPageSizeSelector: true, 
           allowedPageSizes: [20, 30, 40, 50, 60], 
-          visible: true
+          visible:false
+        },
+        onContentReady: function(e) {// 20개 이상일 경우 노출
+          const grid = e.component;
+          const pageCount = grid.pageCount();
+          if (pageCount > 1) {
+            grid.option("pager.visible", true); 
+          } else {
+            grid.option("pager.visible", false); 
+          }
         },
         scrolling: { mode: "standard", showScrollbar:"always"},
         columns: [
